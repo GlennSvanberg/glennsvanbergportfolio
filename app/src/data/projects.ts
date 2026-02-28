@@ -1,7 +1,7 @@
 export type Project = {
   id: string;
   name: string;
-  tags: string[];
+  tags: Array<string>;
   description: string;
   url: string;
   colSpan?: number;
@@ -12,7 +12,7 @@ export type Project = {
   imageUrlMobile?: string;
 };
 
-export const projects: Project[] = [
+export const projects: Array<Project> = [
   {
     id: "allaheterglenn",
     name: "Allaheterglenn",
@@ -142,6 +142,50 @@ export const projects: Project[] = [
     url: "https://stream.glennsvanberg.se",
     imageUrlDesktop: "/solostream-desktop.png",
     imageUrlMobile: "/solostream-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "icon",
+    name: "Icon",
+    tags: ["Design", "Tools"],
+    description: "Generera ikonpaket för din webbplats. Ett verktyg för att skapa och exportera ikonuppsättningar.",
+    url: "https://icon.glennsvanberg.se",
+    imageUrlDesktop: "/icon-desktop.png",
+    imageUrlMobile: "/icon-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "idea",
+    name: "Idea",
+    tags: ["Collaboration", "Real-time"],
+    description: "Ett samarbetsverktyg för att låta idéer växa. Som Tinder för idéer – swipea, rösta och utveckla tillsammans.",
+    url: "https://idea.glennsvanberg.se",
+    imageUrlDesktop: "/idea-desktop.png",
+    imageUrlMobile: "/idea-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "escape",
+    name: "Escape",
+    tags: ["Game", "Puzzle"],
+    description: "Ett online escape room – lösa gåtor och klura ut ledtrådar tillsammans i webbläsaren.",
+    url: "https://escape.glennsvanberg.se",
+    imageUrlDesktop: "/escape-desktop.png",
+    imageUrlMobile: "/escape-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "hairstyle",
+    name: "StyleMyHair",
+    tags: ["AI", "Image Generation"],
+    description: "AI-driven virtuell hårkonsultation – prova olika frisyrer och färger med generativ AI.",
+    url: "https://hairstyle.lovable.app",
+    imageUrlDesktop: "/hairstyle-desktop.png",
+    imageUrlMobile: "/hairstyle-mobile.png",
     colSpan: 1,
     rowSpan: 1,
   },

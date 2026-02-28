@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import type { Project } from "../data/projects";
-import { projects } from "../data/projects";
 import { ArrowUpRight } from "lucide-react";
+import { projects } from "../data/projects";
 import { cn } from "../lib/utils";
+import type { Project } from "../data/projects";
 
 // --------------------------------------------------------
 // Responsive image: desktop (md+) vs mobile

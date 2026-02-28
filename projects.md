@@ -30,3 +30,19 @@ Ping (next.glennsvanberg.se)
 Real-time, Collaboration
 En minimalistisk ping-app för team. Bara skicka notiser – inget annat. Jag byggde den när vi spelade in ett webinar på distans och behövde signalera 'din tur att prata' eller 'räck upp handen' med ett knapptryck – utan att visa handen på skärmen eftersom vi delade skärm.
 
+icon.glennsvanberg.se
+Design, Tools
+Generera ikonpaket för din webbplats. Ett verktyg för att skapa och exportera ikonuppsättningar.
+
+idea.glennsvanberg.se
+Collaboration, Real-time
+Ett samarbetsverktyg för att låta idéer växa. Som Tinder för idéer – swipea, rösta och utveckla tillsammans.
+
+escape.glennsvanberg.se
+Game, Puzzle
+Ett online escape room – lösa gåtor och klura ut ledtrådar tillsammans i webbläsaren.
+
+hairstyle.lovable.app (StyleMyHair)
+AI, Image Generation
+AI-driven virtuell hårkonsultation – prova olika frisyrer och färger med generativ AI.
+

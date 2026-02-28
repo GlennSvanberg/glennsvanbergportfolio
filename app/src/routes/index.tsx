@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ExploratoryProjects } from '../components/ExploratoryProjects'
 import { ArrowDown } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { ExploratoryProjects } from '../components/ExploratoryProjects'
 
 export const Route = createFileRoute('/')({
   component: Home,
