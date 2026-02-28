@@ -16,7 +16,7 @@ export const projects: Array<Project> = [
   {
     id: "allaheterglenn",
     name: "Allaheterglenn",
-    tags: ["React", "Viral Marketing"],
+    tags: ["React", "Viral marknadsföring"],
     description: "Ett viralt experiment kring Göteborgs mest kända namn. Utforskar lokal kultur och viral spridning genom humor.",
     url: "https://allaheterglenn.se",
     imageUrlDesktop: "/allaheterglenn-desktop.png",
@@ -27,7 +27,7 @@ export const projects: Array<Project> = [
   {
     id: "qrbutik",
     name: "QRbutik",
-    tags: ["Payments", "Real-time"],
+    tags: ["Betalningar", "Realtid"],
     description: "Ett system för friktionsfria beställningar via QR-koder. Fokus på snabba flöden och enkelhet utan app-nedladdningar.",
     url: "https://qrbutik.se",
     imageUrlDesktop: "/qrbutik-desktop.png",
@@ -36,20 +36,9 @@ export const projects: Array<Project> = [
     rowSpan: 2,
   },
   {
-    id: "boardio",
-    name: "Boardio",
-    tags: ["Canvas", "Print-on-demand"],
-    description: "Plattform för att designa och beställa skräddarsydda brädspel. Ett komplext projekt som kombinerar e-handel med avancerade designverktyg i webbläsaren.",
-    url: "https://boardio.io",
-    imageUrlDesktop: "/boardio-desktop.png",
-    imageUrlMobile: "/boardio-mobile.png",
-    colSpan: 2,
-    rowSpan: 1,
-  },
-  {
     id: "trackaton",
     name: "Trackaton",
-    tags: ["Analytics", "Big Data"],
+    tags: ["Analys", "Stordata"],
     description: "Min egenutvecklade motor för trafikspårning. Byggd för att förstå dataflöden och integritet på djupet, bortom standardverktygen.",
     url: "https://trackaton.com",
     imageUrlDesktop: "/trackaton-desktop.png",
@@ -60,7 +49,7 @@ export const projects: Array<Project> = [
   {
     id: "photo",
     name: "Glennerator",
-    tags: ["AI", "Image Generation"],
+    tags: ["AI", "Bildgenerering"],
     description: "Glennerator - en AI-driven generator för... ja, mig. Ett lekfullt sätt att utforska generativ AI och personligt varumärke.",
     url: "https://glennsvanberg.se",
     imageUrlDesktop: "/photo-desktop.png",
@@ -71,7 +60,7 @@ export const projects: Array<Project> = [
   {
     id: "malasidor",
     name: "Målasidor",
-    tags: ["AI", "Image Generation"],
+    tags: ["AI", "Bildgenerering"],
     description: "En AI-webbplats där man kan förvandla foton till målasidor som barn kan färglägga.",
     url: "https://målasidor.se",
     imageUrlDesktop: "/malasidor-desktop.png",
@@ -82,7 +71,7 @@ export const projects: Array<Project> = [
   {
     id: "grzaniec",
     name: "Grzaniec",
-    tags: ["Personal", "Vinterdryck"],
+    tags: ["Personligt", "Vinterdryck"],
     description: "Jag tycker detta är den bästa vinterdrycken och vill att fler i Sverige får upp ögonen för den. Man behöver bara lite kryddor och en ljus lager – ingen logistik.",
     url: "https://grzaniec.se",
     imageUrlDesktop: "/grzaniec-desktop.png",
@@ -93,7 +82,7 @@ export const projects: Array<Project> = [
   {
     id: "next",
     name: "Ping",
-    tags: ["Real-time", "Collaboration"],
+    tags: ["Realtid", "Samarbete"],
     description: "En minimalistisk ping-app för team. Bara skicka notiser – inget annat. Jag byggde den när vi spelade in ett webinar på distans och behövde signalera 'din tur att prata' eller 'räck upp handen' med ett knapptryck – utan att visa handen på skärmen eftersom vi delade skärm.",
     url: "https://next.glennsvanberg.se",
     imageUrlDesktop: "/next-desktop.png",
@@ -104,8 +93,8 @@ export const projects: Array<Project> = [
   {
     id: "teddy",
     name: "Teddy",
-    tags: ["Location", "Real-time"],
-    description: "En gosedjursletare för barn – inte en riktig letare utan ett lekfullt verktyg för att söka plushdjur. Platsbaserad, enkel och snabb utan krångel.",
+    tags: ["Plats", "Realtid"],
+    description: "En gosedjursletare för barn – inte ett riktigt verktyg utan ett lekfullt sätt att söka plushdjur. Enkel och rolig utan krångel.",
     url: "https://teddy.glennsvanberg.se",
     imageUrlDesktop: "/teddy-desktop.png",
     imageUrlMobile: "/teddy-mobile.png",
@@ -115,7 +104,7 @@ export const projects: Array<Project> = [
   {
     id: "avatar",
     name: "Avatar",
-    tags: ["AI", "Image Generation"],
+    tags: ["AI", "Bildgenerering"],
     description: "Ladda upp en bild och transformera den till stiliga avatars. AI-driven bildgenerering i webbläsaren.",
     url: "https://avatar.glennsvanberg.se",
     imageUrlDesktop: "/avatar-desktop.png",
@@ -126,7 +115,7 @@ export const projects: Array<Project> = [
   {
     id: "pair",
     name: "PairUp",
-    tags: ["Real-time", "Collaboration"],
+    tags: ["Realtid", "Samarbete"],
     description: "PairUp - slumpa ihop teammedlemmar för parprogrammering eller grupparbete. Skriv in namn och kör igång.",
     url: "https://pair.glennsvanberg.se",
     imageUrlDesktop: "/pair-desktop.png",
@@ -137,7 +126,7 @@ export const projects: Array<Project> = [
   {
     id: "solostream",
     name: "Solostream",
-    tags: ["Audio", "AI"],
+    tags: ["Ljud", "AI"],
     description: "En alltid-på autogenererad radiokanal dedikerad för exakt det du vill lyssna på.",
     url: "https://stream.glennsvanberg.se",
     imageUrlDesktop: "/solostream-desktop.png",
@@ -148,7 +137,7 @@ export const projects: Array<Project> = [
   {
     id: "icon",
     name: "Icon",
-    tags: ["Design", "Tools"],
+    tags: ["Design", "Verktyg"],
     description: "Generera ikonpaket för din webbplats. Ett verktyg för att skapa och exportera ikonuppsättningar.",
     url: "https://icon.glennsvanberg.se",
     imageUrlDesktop: "/icon-desktop.png",
@@ -159,7 +148,7 @@ export const projects: Array<Project> = [
   {
     id: "idea",
     name: "Idea",
-    tags: ["Collaboration", "Real-time"],
+    tags: ["Samarbete", "Realtid"],
     description: "Ett samarbetsverktyg för att låta idéer växa. Som Tinder för idéer – swipea, rösta och utveckla tillsammans.",
     url: "https://idea.glennsvanberg.se",
     imageUrlDesktop: "/idea-desktop.png",
@@ -170,7 +159,7 @@ export const projects: Array<Project> = [
   {
     id: "escape",
     name: "Escape",
-    tags: ["Game", "Puzzle"],
+    tags: ["Spel", "Pussel"],
     description: "Ett online escape room – lösa gåtor och klura ut ledtrådar tillsammans i webbläsaren.",
     url: "https://escape.glennsvanberg.se",
     imageUrlDesktop: "/escape-desktop.png",
@@ -181,12 +170,23 @@ export const projects: Array<Project> = [
   {
     id: "hairstyle",
     name: "StyleMyHair",
-    tags: ["AI", "Image Generation"],
+    tags: ["AI", "Bildgenerering"],
     description: "AI-driven virtuell hårkonsultation – prova olika frisyrer och färger med generativ AI.",
     url: "https://hairstyle.lovable.app",
     imageUrlDesktop: "/hairstyle-desktop.png",
     imageUrlMobile: "/hairstyle-mobile.png",
     colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "boardio",
+    name: "Boardio",
+    tags: ["Canvas", "Tryck på beställning"],
+    description: "Plattform för att designa och beställa skräddarsydda brädspel. Ett komplext projekt som kombinerar e-handel med avancerade designverktyg i webbläsaren.",
+    url: "https://boardio.io",
+    imageUrlDesktop: "/boardio-desktop.png",
+    imageUrlMobile: "/boardio-mobile.png",
+    colSpan: 2,
     rowSpan: 1,
   },
 ];

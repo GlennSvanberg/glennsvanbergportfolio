@@ -48,7 +48,7 @@ export const Route = createRootRouteWithContext<{
       { rel: 'icon', href: '/favicon-32x32.png' },
     ],
   }),
-  notFoundComponent: () => <div>Route not found</div>,
+  notFoundComponent: () => <div>Sidan hittades inte</div>,
   component: RootComponent,
 })
 

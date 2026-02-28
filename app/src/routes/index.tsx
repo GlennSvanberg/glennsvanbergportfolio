@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ExploratoryProjects } from '../components/ExploratoryProjects'
 
@@ -9,7 +8,7 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const [activeWordIndex, setActiveWordIndex] = useState(2);
-  const words = ["Experiments", "Apps", "Ideas"];
+  const words = ["Experiment", "Appar", "Idéer"];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,10 +41,6 @@ function Home() {
           ))}
         </p>
         
-        <div className="absolute bottom-12 animate-bounce text-primary flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-widest font-mono">Scroll</span>
-          <ArrowDown />
-        </div>
       </section>
 
       {/* Projects */}

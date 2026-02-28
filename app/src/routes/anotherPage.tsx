@@ -21,22 +21,22 @@ function AnotherPage() {
         Convex + Tanstack Start
       </h1>
       <div className="flex flex-col gap-8 max-w-lg mx-auto">
-        <p>Numbers: {data.numbers.join(', ')}</p>
-        <p>Click the button below to add a random number to the database.</p>
+        <p>Tal: {data.numbers.join(', ')}</p>
+        <p>Klicka på knappen nedan för att lägga till ett slumpmässigt tal i databasen.</p>
         <p>
           <button
             className="bg-dark dark:bg-light text-light dark:text-dark text-sm px-4 py-2 rounded-md border-2"
             onClick={() => {
               callMyAction({
                 first: Math.round(Math.random() * 100),
-              }).then(() => alert('Number added!'))
+              }).then(() => alert('Tal tillagt!'))
             }}
           >
-            Call action to add a random number
+            Lägg till ett slumpmässigt tal
           </button>
         </p>
         <Link to="/" className="text-blue-600 underline hover:no-underline">
-          Back
+          Tillbaka
         </Link>
       </div>
     </main>

@@ -34,15 +34,32 @@ async function main() {
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
+  // Disable scroll restoration so we always start at top
+  await page.addInitScript(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  });
+
   for (const [size, viewport] of Object.entries(VIEWPORTS)) {
     // Set viewport BEFORE navigation so the site renders the correct layout
     await page.setViewportSize(viewport);
-    await page.goto(url, { waitUntil: "load", timeout: 60000 });
+    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     await page.waitForTimeout(2000);
 
-    // Ensure we capture from top of page
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await page.waitForTimeout(300);
+    // Force scroll to top – handle both document and body, and any scroll containers
+    await page.evaluate(() => {
+      document.documentElement.scrollTop = 0;
+      document.documentElement.scrollLeft = 0;
+      document.body.scrollTop = 0;
+      document.body.scrollLeft = 0;
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      // Some sites use a main scroll container
+      const main = document.querySelector("main");
+      if (main) {
+        main.scrollTop = 0;
+        main.scrollLeft = 0;
+      }
+    });
+    await page.waitForTimeout(500);
 
     const outputPath = join(publicDir, `${projectId}-${size}.png`);
     // Viewport only – capture what visitors see when they land on the page
