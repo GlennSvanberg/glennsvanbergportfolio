@@ -16,17 +16,17 @@ Min egenutvecklade motor för trafikspårning. Byggd för att förstå dataflöd
 
 photo.glennsvanberg.se
 AI, Image Generation
-Glenneratorn - en AI-driven generator för... ja, mig. Ett lekfullt sätt att utforska generativ AI och personligt varumärke.
+Glennerator - en AI-driven generator för... ja, mig. Ett lekfullt sätt att utforska generativ AI och personligt varumärke.
 
 målasidor.se
-SEO, Content
-Ett renodlat SEO-experiment. Hur snabbt kan man ranka på specifika sökord genom att erbjuda strukturerat innehåll för barn?
+AI, Image Generation
+En AI-webbplats där man kan förvandla foton till målasidor som barn kan färglägga.
 
 grzaniec.se
-E-commerce, Logistics
-Ett e-handels- och importexperiment med fokus på polsk vinterdryck. Testar logistik och nischad marknadsföring.
+Personal, Vinterdryck
+Jag tycker detta är den bästa vinterdrycken och vill att fler i Sverige får upp ögonen för den. Man behöver bara lite kryddor och en ljus lager – ingen logistik.
 
-Next
+Ping (next.glennsvanberg.se)
 Real-time, Collaboration
-En minimalistisk ping-app för team. Fokuserar på snabb statusrapportering utan onödigt brus.
+En minimalistisk ping-app för team. Bara skicka notiser – inget annat. Jag byggde den när vi spelade in ett webinar på distans och behövde signalera 'din tur att prata' eller 'räck upp handen' med ett knapptryck – utan att visa handen på skärmen eftersom vi delade skärm.
 

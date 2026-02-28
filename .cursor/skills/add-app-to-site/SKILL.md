@@ -45,13 +45,13 @@ When the agent has browser access, capture **two** screenshots at different view
    - `browser_resize` width 1920, height 1080
    - `browser_navigate` to the site URL
    - `browser_wait_for` 2–3 seconds for content to load
-   - `browser_take_screenshot` with `filename: "app/public/{projectId}-desktop.png"` and `fullPage: true`
+   - `browser_take_screenshot` with `filename: "app/public/{projectId}-desktop.png"` and `fullPage: false` (viewport only)
 
 2. **Mobile** (390×844):
    - `browser_resize` width 390, height 844
    - `browser_navigate` to the site URL (or reload if already there)
    - `browser_wait_for` 2–3 seconds
-   - `browser_take_screenshot` with `filename: "app/public/{projectId}-mobile.png"` and `fullPage: true`
+   - `browser_take_screenshot` with `filename: "app/public/{projectId}-mobile.png"` and `fullPage: false` (viewport only)
 
 ## Project Entry Format
 

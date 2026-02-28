@@ -40,13 +40,13 @@ async function main() {
     await page.goto(url, { waitUntil: "load", timeout: 60000 });
     await page.waitForTimeout(2000);
 
-    // Ensure we capture the top of the page (hero/landing), not a scrolled position
+    // Ensure we capture from top of page
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(300);
 
     const outputPath = join(publicDir, `${projectId}-${size}.png`);
-    // Mobile: viewport only (what user sees on phone). Desktop: full page for hero shot.
-    const fullPage = size === "desktop";
+    // Viewport only – capture what visitors see when they land on the page
+    const fullPage = false;
     await page.screenshot({ path: outputPath, fullPage, timeout: 60000 });
     console.log(`Screenshot saved: ${outputPath} (${fullPage ? "full page" : "viewport"})`);
   }
