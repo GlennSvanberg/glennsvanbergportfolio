@@ -1,0 +1,148 @@
+export type Project = {
+  id: string;
+  name: string;
+  tags: string[];
+  description: string;
+  url: string;
+  colSpan?: number;
+  rowSpan?: number;
+  /** @deprecated Use imageUrlDesktop/imageUrlMobile. Falls back for both when set. */
+  imageUrl?: string;
+  imageUrlDesktop?: string;
+  imageUrlMobile?: string;
+};
+
+export const projects: Project[] = [
+  {
+    id: "allaheterglenn",
+    name: "Allaheterglenn",
+    tags: ["React", "Viral Marketing"],
+    description: "Ett viralt experiment kring Göteborgs mest kända namn. Utforskar lokal kultur och viral spridning genom humor.",
+    url: "https://allaheterglenn.se",
+    imageUrlDesktop: "/allaheterglenn-desktop.png",
+    imageUrlMobile: "/allaheterglenn-mobile.png",
+    colSpan: 2,
+    rowSpan: 2,
+  },
+  {
+    id: "qrbutik",
+    name: "QRbutik",
+    tags: ["Payments", "Real-time"],
+    description: "Ett system för friktionsfria beställningar via QR-koder. Fokus på snabba flöden och enkelhet utan app-nedladdningar.",
+    url: "https://qrbutik.se",
+    imageUrlDesktop: "/qrbutik-desktop.png",
+    imageUrlMobile: "/qrbutik-mobile.png",
+    colSpan: 1,
+    rowSpan: 2,
+  },
+  {
+    id: "boardio",
+    name: "Boardio",
+    tags: ["Canvas", "Print-on-demand"],
+    description: "Plattform för att designa och beställa skräddarsydda brädspel. Ett komplext projekt som kombinerar e-handel med avancerade designverktyg i webbläsaren.",
+    url: "https://boardio.io",
+    imageUrlDesktop: "/boardio-desktop.png",
+    imageUrlMobile: "/boardio-mobile.png",
+    colSpan: 2,
+    rowSpan: 1,
+  },
+  {
+    id: "trackaton",
+    name: "Trackaton",
+    tags: ["Analytics", "Big Data"],
+    description: "Min egenutvecklade motor för trafikspårning. Byggd för att förstå dataflöden och integritet på djupet, bortom standardverktygen.",
+    url: "https://trackaton.com",
+    imageUrlDesktop: "/trackaton-desktop.png",
+    imageUrlMobile: "/trackaton-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "photo",
+    name: "Glenneratorn",
+    tags: ["AI", "Image Generation"],
+    description: "Glenneratorn - en AI-driven generator för... ja, mig. Ett lekfullt sätt att utforska generativ AI och personligt varumärke.",
+    url: "https://photo.glennsvanberg.se",
+    imageUrlDesktop: "/photo-desktop.png",
+    imageUrlMobile: "/photo-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "malasidor",
+    name: "Målasidor",
+    tags: ["SEO", "Content"],
+    description: "Ett renodlat SEO-experiment. Hur snabbt kan man ranka på specifika sökord genom att erbjuda strukturerat innehåll för barn?",
+    url: "https://målasidor.se",
+    imageUrlDesktop: "/malasidor-desktop.png",
+    imageUrlMobile: "/malasidor-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "grzaniec",
+    name: "Grzaniec",
+    tags: ["E-commerce", "Logistics"],
+    description: "Ett e-handels- och importexperiment med fokus på polsk vinterdryck. Testar logistik och nischad marknadsföring.",
+    url: "https://grzaniec.se",
+    imageUrlDesktop: "/grzaniec-desktop.png",
+    imageUrlMobile: "/grzaniec-mobile.png",
+    colSpan: 2,
+    rowSpan: 1,
+  },
+  {
+    id: "next",
+    name: "Ping",
+    tags: ["Real-time", "Collaboration"],
+    description: "En minimalistisk ping-app för team. Fokuserar på snabb statusrapportering utan onödigt brus.",
+    url: "https://next.glennsvanberg.se",
+    imageUrlDesktop: "/next-desktop.png",
+    imageUrlMobile: "/next-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "teddy",
+    name: "Teddy",
+    tags: ["Location", "Real-time"],
+    description: "Platsbaserad app för att hitta och matcha. Enkel och snabb utan krångel.",
+    url: "https://teddy.glennsvanberg.se",
+    imageUrlDesktop: "/teddy-desktop.png",
+    imageUrlMobile: "/teddy-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "avatar",
+    name: "Avatar",
+    tags: ["AI", "Image Generation"],
+    description: "Ladda upp en bild och transformera den till stiliga avatars. AI-driven bildgenerering i webbläsaren.",
+    url: "https://avatar.glennsvanberg.se",
+    imageUrlDesktop: "/avatar-desktop.png",
+    imageUrlMobile: "/avatar-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "pair",
+    name: "PairUp",
+    tags: ["Real-time", "Collaboration"],
+    description: "PairUp - slumpa ihop teammedlemmar för parprogrammering eller grupparbete. Skriv in namn och kör igång.",
+    url: "https://pair.glennsvanberg.se",
+    imageUrlDesktop: "/pair-desktop.png",
+    imageUrlMobile: "/pair-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    id: "solostream",
+    name: "Solostream",
+    tags: ["Audio", "AI"],
+    description: "En alltid-på autogenererad radiokanal dedikerad för exakt det du vill lyssna på.",
+    url: "https://stream.glennsvanberg.se",
+    imageUrlDesktop: "/solostream-desktop.png",
+    imageUrlMobile: "/solostream-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+];
