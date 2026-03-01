@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -38,7 +37,7 @@ export const PostCard = ({ post }: { post: Doc<"posts"> }) => {
         )}
       </div>
 
-      <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-3 text-primary font-mono font-bold uppercase tracking-widest mt-auto hover:text-emerald-400 transition-colors duration-300 w-max">
+      <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-3 text-primary font-mono font-bold uppercase tracking-widest mt-auto hover:text-emerald-400 transition-colors duration-300 w-max">
         Läs inlägg
         <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
       </Link>

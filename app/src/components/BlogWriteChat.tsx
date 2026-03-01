@@ -41,8 +41,8 @@ function PatchBlock({
 }) {
   const hunks = parsePatch(patchText);
   return (
-    <div className="my-4 border border-emerald-500/30 rounded-lg overflow-hidden bg-black/60">
-      <div className="flex items-center justify-between px-3 py-2 bg-emerald-500/10 border-b border-emerald-500/20">
+    <div className="my-4 border border-emerald-500/30 rounded-lg overflow-hidden bg-black/60 w-full">
+      <div className="flex items-center justify-between px-3 py-2 bg-emerald-500/10 border-b border-emerald-500/20 shrink-0">
         <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           Patch ({hunks.length} hunk{hunks.length !== 1 ? "s" : ""})
@@ -57,27 +57,35 @@ function PatchBlock({
           </button>
         )}
       </div>
-      <div className="font-mono text-sm overflow-x-auto">
-        {applyError && (
-          <div className="px-3 py-2 bg-red-950/60 border-b border-red-500/30 text-red-400 text-xs">
-            {applyError}
-          </div>
-        )}
-        <pre className="p-3 m-0 text-sm whitespace-pre overflow-x-auto">
-          {patchText.split("\n").map((line, i) => (
-            <div
-              key={i}
-              className={
-                line.startsWith("-")
-                  ? "text-red-400/90"
-                  : line.startsWith("+")
-                    ? "text-emerald-400/90"
-                    : "text-muted-foreground/70"
-              }
-            >
-              {line || " "}
-            </div>
-          ))}
+      {applyError && (
+        <div className="px-3 py-2 bg-red-950/60 border-b border-red-500/30 text-red-400 text-xs shrink-0">
+          {applyError}
+        </div>
+      )}
+      <div className="font-mono text-sm overflow-x-auto overflow-y-hidden min-w-0 bg-black/80">
+        <pre className="p-3 m-0 text-sm font-mono whitespace-pre min-w-max">
+          {patchText.split("\n").map((line, i) => {
+            const isRemove = line.startsWith("-") && !line.startsWith("---");
+            const isAdd = line.startsWith("+") && !line.startsWith("+++");
+            const isHeader = line.startsWith("@@");
+            
+            return (
+              <div
+                key={i}
+                className={`whitespace-pre px-2 py-0.5 -mx-2 ${
+                  isHeader
+                    ? "text-emerald-400/60 bg-emerald-950/20"
+                    : isRemove
+                      ? "bg-red-950/40 text-red-300"
+                      : isAdd
+                        ? "bg-emerald-950/40 text-emerald-300"
+                        : "text-muted-foreground/80"
+                }`}
+              >
+                {line || " "}
+              </div>
+            );
+          })}
         </pre>
       </div>
     </div>
@@ -111,6 +119,7 @@ export function BlogWriteChat({
   const [applyError, setApplyError] = useState<string | null>(null);
   const [showChatList, setShowChatList] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const currentChat = useQuery(
     api.blogChats.get,
@@ -177,6 +186,7 @@ export function BlogWriteChat({
     const newMessages: ChatMessage[] = [...messages, userMessage];
     setMessages(newMessages);
     setLoading(true);
+    queueMicrotask(() => textareaRef.current?.focus());
 
     try {
       const chatId = await ensureChat();
@@ -203,6 +213,7 @@ export function BlogWriteChat({
       setMessages(messages);
     } finally {
       setLoading(false);
+      queueMicrotask(() => textareaRef.current?.focus());
     }
   }
 
@@ -273,7 +284,9 @@ export function BlogWriteChat({
         {messages.length === 0 && (
           <p className="text-muted text-sm text-center py-8 font-mono">
             {isEmbedded 
-              ? "Ask me to edit the draft—fix typos, improve a paragraph, or rewrite the whole thing. I'll show a patch you can apply with one click."
+              ? (currentDraft?.trim()
+                  ? "Ask me to edit the draft—fix typos, improve a paragraph, or rewrite the whole thing. I'll show a patch you can apply with one click."
+                  : "Share a blog idea and I'll ask a few questions. Say \"write it\" when you're ready—then click \"Use as draft\" to put it in the editor.")
               : "Share a blog idea and I'll ask a few questions before writing. Say \"write it\" when you're ready."}
           </p>
         )}
@@ -283,23 +296,25 @@ export function BlogWriteChat({
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[90%] rounded-lg px-4 py-3 ${
+              className={`rounded-lg px-4 py-3 min-w-0 ${
                 msg.role === "user"
-                  ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-50"
-                  : "bg-black/40 border border-emerald-500/10"
+                  ? "max-w-[90%] bg-emerald-500/10 border border-emerald-500/20 text-emerald-50"
+                  : "max-w-full bg-black/40 border border-emerald-500/10"
               }`}
             >
               {msg.role === "assistant" ? (
-                <div className="prose prose-invert prose-emerald prose-sm max-w-none">
+                <div className="prose prose-invert prose-emerald prose-sm max-w-none min-w-0">
                   <ReactMarkdown
                     components={{
                       code(props) {
                         const { children, className, node, ...rest } = props;
                         const match = /language-(\w+)/.exec(className || "");
-                        const isPatch = match && (match[1] === "patch" || match[1] === "diff");
+                        const contentStr = String(children);
+                        const hasPatchHeader = /(?:^|\n)@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@/.test(contentStr);
+                        const isPatch = (match && (match[1] === "patch" || match[1] === "diff")) || hasPatchHeader;
                         
                         if (isPatch) {
-                          const patchText = String(children).replace(/\n$/, "");
+                          const patchText = contentStr.replace(/\n$/, "");
                           return (
                             <PatchBlock
                               patchText={patchText}
@@ -316,8 +331,8 @@ export function BlogWriteChat({
                           );
                         }
                         
-                        const inline = !match;
-                        return inline ? (
+                        const isInline = !match && !String(children).includes("\n");
+                        return isInline ? (
                           <code className={className} {...rest}>
                             {children}
                           </code>
@@ -352,7 +367,7 @@ export function BlogWriteChat({
       </div>
 
       <div className={`shrink-0 space-y-2 ${isEmbedded ? 'p-3 border-t border-emerald-500/20 bg-black/20' : 'pt-4'}`}>
-        {canUseAsDraft && !isEmbedded && (
+        {canUseAsDraft && (
           <button
             type="button"
             onClick={handleUseDraft}
@@ -363,6 +378,7 @@ export function BlogWriteChat({
         )}
         <div className="flex gap-2">
           <textarea
+            ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {

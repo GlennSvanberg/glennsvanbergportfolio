@@ -1,4 +1,5 @@
 import { internalMutation } from "./_generated/server";
+import { DEFAULT_INSTRUCTIONS } from "./blogSettings";
 
 const FEATURED_SLUGS = ["bygga-sma-appar-som-lar", "ideer-som-vaxer"];
 
@@ -101,5 +102,26 @@ export const seedFeatured = internalMutation({
       }
     }
     return { done: true };
+  },
+});
+
+export const seedBlogSettings = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const existing = await ctx.db
+      .query("blogSettings")
+      .withIndex("by_key", (q) => q.eq("key", "default"))
+      .unique();
+
+    if (!existing) {
+      await ctx.db.insert("blogSettings", {
+        key: "default",
+        instructions: DEFAULT_INSTRUCTIONS,
+        context: "",
+        updatedAt: Date.now(),
+      });
+      return { inserted: true };
+    }
+    return { inserted: false };
   },
 });

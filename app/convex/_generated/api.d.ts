@@ -10,6 +10,7 @@
 
 import type * as adminAuth from "../adminAuth.js";
 import type * as blogChats from "../blogChats.js";
+import type * as blogSettings from "../blogSettings.js";
 import type * as blogWrite from "../blogWrite.js";
 import type * as myFunctions from "../myFunctions.js";
 import type * as posts from "../posts.js";
@@ -24,6 +25,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   adminAuth: typeof adminAuth;
   blogChats: typeof blogChats;
+  blogSettings: typeof blogSettings;
   blogWrite: typeof blogWrite;
   myFunctions: typeof myFunctions;
   posts: typeof posts;

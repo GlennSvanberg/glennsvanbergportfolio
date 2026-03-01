@@ -342,7 +342,7 @@ export const ExploratoryProjects = ({ posts = [] }: { posts?: Doc<"posts">[] }) 
 
   return (
     <div className="flex flex-col w-full">
-      {combinedItems.map((item, index) => {
+      {combinedItems.map((item) => {
         if (item.type === 'post') {
           return <BlogPostSection key={item.data._id} post={item.data} />;
         }

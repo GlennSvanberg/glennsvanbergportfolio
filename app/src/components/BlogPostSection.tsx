@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -74,7 +73,7 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
               </div>
             )}
             
-            <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest mt-6 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max">
+            <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest mt-6 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max">
               Läs mer
               <ArrowUpRight className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>

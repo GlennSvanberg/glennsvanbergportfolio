@@ -21,12 +21,20 @@ function AdminLayout() {
           <h1 className="font-mono text-lg font-bold uppercase tracking-widest text-primary/80">
             Admin
           </h1>
-          <Link
-            to="/admin/blog"
-            className="min-h-[44px] flex items-center text-sm text-muted hover:text-foreground transition-colors"
-          >
-            Blog
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/admin/blog"
+              className="min-h-[44px] flex items-center text-sm text-muted hover:text-foreground transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              to="/admin/settings"
+              className="min-h-[44px] flex items-center text-sm text-muted hover:text-foreground transition-colors"
+            >
+              AI Settings
+            </Link>
+          </div>
         </div>
       </header>
       <main className="flex-1 w-full flex flex-col min-h-0">

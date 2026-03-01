@@ -1,9 +1,8 @@
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
 
 export const Route = createFileRoute('/blog/$slug')({
   component: BlogPost,

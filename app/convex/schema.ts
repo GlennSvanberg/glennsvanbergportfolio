@@ -39,4 +39,10 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_updated", ["updatedAt"]),
+  blogSettings: defineTable({
+    key: v.literal("default"),
+    instructions: v.string(),
+    context: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 });
