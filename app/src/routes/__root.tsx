@@ -3,6 +3,7 @@ import {
   Outlet,
   Scripts,
   createRootRouteWithContext,
+  Link,
 } from '@tanstack/react-router'
 import * as React from 'react'
 import type { QueryClient } from '@tanstack/react-query'
@@ -55,7 +56,23 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <div className="flex flex-col min-h-screen">
+        <header className="border-b border-primary/10 bg-[var(--background)] text-[var(--foreground)] px-4 py-3 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <Link to="/" className="font-mono uppercase tracking-widest text-sm hover:text-emerald-400 transition-colors">
+              Glenn Svanberg
+            </Link>
+            <nav>
+              <Link to="/blog" className="font-mono uppercase tracking-widest text-sm text-muted hover:text-emerald-400 transition-colors">
+                Blog
+              </Link>
+            </nav>
+          </div>
+        </header>
+        <div className="flex-1">
+          <Outlet />
+        </div>
+      </div>
     </RootDocument>
   )
 }

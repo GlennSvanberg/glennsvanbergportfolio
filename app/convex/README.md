@@ -1,5 +1,13 @@
 # Welcome to your Convex functions directory!
 
+## Admin authentication
+
+The admin blog studio at `/admin/blog` uses hardcoded credentials. Set these in the Convex Dashboard (Deployment Settings → Environment Variables):
+
+- `ADMIN_USERNAME` – admin username
+- `ADMIN_PASSWORD` – admin password
+- `OPENAI_API_KEY` – for the AI blog assistant (Write with AI)
+
 Write your Convex functions here.
 See https://docs.convex.dev/functions for more.
 
