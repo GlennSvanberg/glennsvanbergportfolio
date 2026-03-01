@@ -1,9 +1,33 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Share2, Check } from "lucide-react";
+import { useState } from "react";
 import type { Doc } from "../../convex/_generated/dataModel";
 
 export const PostCard = ({ post }: { post: Doc<"posts"> }) => {
+  const [copied, setCopied] = useState(false);
+
+  async function copyLink(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = typeof window !== "undefined" ? `${window.location.origin}/blog/${post.slug}` : "";
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      if (typeof window !== "undefined") {
+        const input = document.createElement("input");
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    }
+  }
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -37,10 +61,20 @@ export const PostCard = ({ post }: { post: Doc<"posts"> }) => {
         )}
       </div>
 
-      <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-3 text-primary font-mono font-bold uppercase tracking-widest mt-auto hover:text-emerald-400 transition-colors duration-300 w-max">
-        Läs inlägg
-        <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
-      </Link>
+      <div className="flex items-center gap-4 mt-auto">
+        <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-3 text-primary font-mono font-bold uppercase tracking-widest hover:text-emerald-400 transition-colors duration-300 w-max">
+          Läs inlägg
+          <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
+        <button
+          type="button"
+          onClick={copyLink}
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-primary/10 hover:border-emerald-400/50 text-muted/60 hover:text-emerald-400 transition-colors duration-300"
+          title="Kopiera länk"
+        >
+          {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+        </button>
+      </div>
     </motion.div>
   );
 };

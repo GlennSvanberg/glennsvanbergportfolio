@@ -1,10 +1,35 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Share2, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { Doc } from "../../convex/_generated/dataModel";
+import { MarkdownRenderer } from "./MarkdownRenderer";
 
 export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
+  const [copied, setCopied] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  async function copyLink(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = typeof window !== "undefined" ? `${window.location.origin}/blog/${post.slug}` : "";
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      if (typeof window !== "undefined") {
+        const input = document.createElement("input");
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    }
+  }
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -28,25 +53,25 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
       />
 
       <div className="container relative z-10 mx-auto px-4 md:px-8 flex flex-col gap-8 md:gap-12 max-w-5xl">
-        <div className="flex flex-col gap-6 md:gap-8 items-start">
-          <motion.div style={{ scale }} className="flex flex-col gap-6 relative z-20 w-full pt-4">
-            <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6 md:gap-8 items-center text-center">
+          <motion.div style={{ scale }} className="flex flex-col gap-6 relative z-20 w-full pt-4 items-center">
+            <div className="flex flex-col gap-2 items-center w-full">
                <span className="text-primary font-mono text-sm tracking-widest uppercase mb-2">Blogg / Idéer</span>
-               <div className="inline-block relative w-max">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter leading-tight pb-2">
+               <div className="inline-block relative max-w-full">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-foreground uppercase tracking-tighter leading-tight pb-2 break-words">
                     {post.title}
                   </h2>
                   <motion.div
-                    initial={{ width: "0%" }}
+                    initial={{ width: "0%", left: "50%", x: "-50%" }}
                     whileInView={{ width: "100%" }}
                     transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
                     viewport={{ once: true, margin: "-15%" }}
-                    className="absolute bottom-0 left-0 h-1 md:h-1.5 bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)]"
+                    className="absolute bottom-0 h-1 md:h-1.5 bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)]"
                   />
                </div>
             </div>
 
-            <div className="flex flex-wrap gap-3 mt-2">
+            <div className="flex flex-wrap justify-center gap-3 mt-2">
               {post.tags.map((tag) => (
                 <span key={tag} className="text-primary bg-primary/5 font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full border border-primary/20 hover:text-emerald-400 hover:border-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 cursor-default">
                   {tag}
@@ -57,26 +82,66 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
               </span>
             </div>
           
-            {post.excerpt && (
-              <div className="relative pl-6 py-1 max-w-3xl mt-4">
-                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary/30" />
-                <motion.div 
-                  initial={{ height: "0%" }}
-                  whileInView={{ height: "100%" }}
-                  transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-                  viewport={{ once: true }}
-                  className="absolute left-0 top-0 w-[2px] bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
-                />
-                <p className="text-xl md:text-2xl text-foreground/80 font-light leading-relaxed">
-                  {post.excerpt}
-                </p>
+            <div className="relative mt-4 w-full flex justify-center">
+              <div 
+                className={`relative overflow-hidden transition-all duration-1000 ease-in-out w-full max-w-4xl ${
+                  isExpanded ? 'max-h-[30000px]' : 'max-h-[300px] md:max-h-[400px]'
+                }`}
+                style={{
+                  maskImage: isExpanded ? 'none' : 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                  WebkitMaskImage: isExpanded ? 'none' : 'linear-gradient(to bottom, black 60%, transparent 100%)'
+                }}
+              >
+                <div className="relative pl-6 py-1 w-full text-left mx-auto">
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary/30" />
+                  <motion.div 
+                    initial={{ height: "0%" }}
+                    whileInView={{ height: "100%" }}
+                    transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+                    viewport={{ once: true }}
+                    className="absolute left-0 top-0 w-[2px] bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
+                  />
+                  <div className="markdown-content text-lg text-foreground/80 leading-relaxed font-light space-y-8 prose-container">
+                    <MarkdownRenderer>
+                      {post.body.replace(/^\s*#\s+[^\n]+/, '')}
+                    </MarkdownRenderer>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
             
-            <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest mt-6 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max">
-              Läs mer
-              <ArrowUpRight className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 mt-6">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max"
+              >
+                {isExpanded ? (
+                  <>
+                    Visa mindre
+                    <ChevronUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" />
+                  </>
+                ) : (
+                  <>
+                    Läs mer
+                    <ChevronDown className="w-6 h-6 group-hover:translate-y-1 transition-transform duration-300" />
+                  </>
+                )}
+              </button>
+
+              <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-2 text-muted/60 hover:text-emerald-400 font-mono text-sm uppercase tracking-widest transition-colors duration-300 group">
+                Gå till inlägg
+                <ArrowUpRight className="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+
+              <button
+                type="button"
+                onClick={copyLink}
+                className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-primary/10 hover:border-emerald-400/50 text-muted/60 hover:text-emerald-400 transition-colors duration-300"
+                title="Kopiera länk"
+              >
+                {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
+              </button>
+            </div>
           </motion.div>
         </div>
       </div>
