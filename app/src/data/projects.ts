@@ -39,7 +39,7 @@ export const projects: Array<Project> = [
     id: "glennsvanberg",
     name: "glennsvanberg.se",
     tags: ["Portfolio", "Personligt"],
-    description: "Min personliga portfolio där jag håller koll på mina projekt och idéer – lite loopigt och kul att den är med här också.",
+    description: "Min personliga portfolio där jag håller koll på mina projekt och idéer.",
     url: "https://glennsvanberg.se",
     imageUrlDesktop: "/glennsvanberg-desktop.png",
     imageUrlMobile: "/glennsvanberg-mobile.png",
