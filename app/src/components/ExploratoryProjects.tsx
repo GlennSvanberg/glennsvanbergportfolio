@@ -4,9 +4,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { cn } from "../lib/utils";
+import { BlogPostSection } from "./BlogPostSection";
 import type { Project } from "../data/projects";
 import type { Doc } from "../../convex/_generated/dataModel";
-import { BlogPostSection } from "./BlogPostSection";
 
 // --------------------------------------------------------
 // Responsive image: desktop (md+) vs mobile
@@ -35,15 +35,16 @@ function ResponsiveProjectImg({
 
   const { desktop, mobile } = urls;
   const useResponsive = desktop !== mobile;
+  const imgClassName = cn("block w-full h-full", className);
 
   if (!useResponsive) {
-    return <img src={desktop} alt={alt} className={className} style={style} />;
+    return <img src={desktop} alt={alt} className={imgClassName} style={style} />;
   }
 
   return (
-    <picture>
+    <picture className="block w-full h-full">
       <source media={`(max-width: ${PROJECT_IMAGE_BREAKPOINT - 1}px)`} srcSet={mobile} />
-      <img src={desktop} alt={alt} className={className} style={style} />
+      <img src={desktop} alt={alt} className={imgClassName} style={style} />
     </picture>
   );
 }
@@ -73,12 +74,12 @@ const ProjectImage = ({ project, className }: { project: Project; className?: st
             />
           </motion.div>
           {/* Soft inner glow/border */}
-          <div className="absolute inset-0 border border-primary/20 rounded-xl pointer-events-none z-20 group-hover:border-emerald-400/50 transition-colors duration-500" />
+          <div className="absolute inset-0 border border-primary/20 rounded-[inherit] pointer-events-none z-20 group-hover:border-emerald-400/50 transition-colors duration-500" />
           {/* Soft green overlay on hover */}
           <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/10 transition-colors duration-500 pointer-events-none z-10 mix-blend-overlay" />
         </>
       ) : (
-        <div className="absolute inset-0 flex items-center justify-center p-12 bg-card/50 transition-all duration-500 rounded-xl border border-primary/10">
+        <div className="absolute inset-0 flex items-center justify-center p-12 bg-card/50 transition-all duration-500 rounded-[inherit] border border-primary/10">
           <span className="text-primary/20 font-mono text-5xl md:text-9xl font-black -rotate-90 origin-center whitespace-nowrap">
             {project.name}
           </span>
@@ -165,7 +166,7 @@ const DiagonalSection = ({ project }: { project: Project }) => {
           {/* Screenshot */}
           <motion.div style={{ y: y1 }} className="w-full max-w-[280px] md:max-w-full mx-auto aspect-[9/19] md:aspect-[4/3] relative shrink-0 rounded-[2rem] md:rounded-2xl p-2 bg-black/40 border border-primary/20 shadow-2xl shadow-primary/5 order-1 md:order-2 group">
             <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/10 blur-xl transition-colors duration-500 rounded-full -z-10" />
-            <ProjectImage project={project} className="w-full h-full !rounded-[1.5rem] md:!rounded-xl" />
+            <ProjectImage project={project} className="w-full h-full !rounded-[1.5rem] md:!rounded-lg" />
           </motion.div>
         </div>
       </div>
@@ -211,8 +212,8 @@ const CenterParallaxSection = ({ project }: { project: Project }) => {
           />
         </div>
         
-        <motion.div style={{ y }} className="w-full max-w-[280px] md:max-w-none mx-auto aspect-[9/19] md:aspect-video p-2 md:p-3 flex flex-col items-center justify-center relative overflow-hidden rounded-[2rem] md:rounded-2xl bg-black/40 border border-primary/20 shadow-2xl shadow-primary/5 group">
-           <ProjectImage project={project} className="absolute inset-0 w-full h-full !rounded-[1.5rem] md:!rounded-xl" />
+        <motion.div style={{ y }} className="w-full max-w-[280px] md:max-w-none mx-auto aspect-[9/19] md:aspect-video p-2 flex flex-col items-center justify-center relative overflow-hidden rounded-[2rem] md:rounded-2xl bg-black/40 border border-primary/20 shadow-2xl shadow-primary/5 group">
+           <ProjectImage project={project} className="w-full h-full !rounded-[1.5rem] md:!rounded-lg" />
         </motion.div>
 
         <div className="flex flex-col items-center gap-8 max-w-3xl mx-auto">
@@ -296,7 +297,7 @@ const StickySidebarSection = ({ project }: { project: Project }) => {
               className="w-full max-w-[280px] md:max-w-none mx-auto aspect-[9/19] md:aspect-[4/3] relative rounded-[2rem] md:rounded-2xl p-2 bg-black/40 border border-primary/20 shadow-2xl shadow-primary/5 group"
             >
                <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/10 blur-2xl transition-colors duration-700 rounded-full -z-10" />
-               <ProjectImage project={project} className="w-full h-full !rounded-[1.5rem] md:!rounded-xl" />
+               <ProjectImage project={project} className="w-full h-full !rounded-[1.5rem] md:!rounded-lg" />
             </motion.div>
           </div>
         </div>
@@ -309,7 +310,7 @@ const StickySidebarSection = ({ project }: { project: Project }) => {
 // --------------------------------------------------------
 // Main Component that maps projects to different layouts
 // --------------------------------------------------------
-export const ExploratoryProjects = ({ posts = [] }: { posts?: Doc<"posts">[] }) => {
+export const ExploratoryProjects = ({ posts = [] }: { posts?: Array<Doc<"posts">> }) => {
   // Build combined array
   const combinedItems: Array<{ type: 'project'; data: Project; projectIndex: number } | { type: 'post'; data: Doc<"posts"> }> = [];
   
