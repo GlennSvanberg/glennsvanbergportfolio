@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import { ExploratoryProjects } from '../components/ExploratoryProjects'
 
 export const Route = createFileRoute('/')({
@@ -9,6 +11,8 @@ export const Route = createFileRoute('/')({
 function Home() {
   const [activeWordIndex, setActiveWordIndex] = useState(2);
   const words = ["Experiment", "Appar", "Idéer"];
+
+  const featuredPosts = useQuery(api.posts.listFeatured) ?? [];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,7 +48,7 @@ function Home() {
       </section>
 
       {/* Projects */}
-      <ExploratoryProjects />
+      <ExploratoryProjects posts={featuredPosts} />
     </main>
   )
 }

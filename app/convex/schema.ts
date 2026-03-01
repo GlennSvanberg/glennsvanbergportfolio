@@ -9,4 +9,57 @@ export default defineSchema({
   numbers: defineTable({
     value: v.number(),
   }),
+  adminSessions: defineTable({
+    token: v.string(),
+    expiresAt: v.number(),
+  }).index("by_token", ["token"]),
+  posts: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.optional(v.string()),
+    body: v.string(),
+    tags: v.array(v.string()),
+    publishedAt: v.number(),
+    updatedAt: v.optional(v.number()),
+    relatedProjectId: v.optional(v.string()),
+    featuredOrder: v.optional(v.number()),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_published", ["publishedAt"])
+    .index("by_tags", ["tags"])
+    .index("by_featured_order", ["featuredOrder"]),
+  blogChats: defineTable({
+    title: v.string(),
+    messages: v.array(
+      v.object({
+        role: v.union(v.literal("user"), v.literal("assistant")),
+        content: v.string(),
+      })
+    ),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_updated", ["updatedAt"]),
+  blogSettings: defineTable({
+    key: v.literal("default"),
+    instructions: v.string(),
+    context: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
+  tweetChats: defineTable({
+    title: v.string(),
+    messages: v.array(
+      v.object({
+        role: v.union(v.literal("user"), v.literal("assistant")),
+        content: v.string(),
+      })
+    ),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_updated", ["updatedAt"]),
+  tweetSettings: defineTable({
+    key: v.literal("default"),
+    instructions: v.string(),
+    context: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 });

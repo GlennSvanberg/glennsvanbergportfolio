@@ -5,6 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { cn } from "../lib/utils";
 import type { Project } from "../data/projects";
+import type { Doc } from "../../convex/_generated/dataModel";
+import { BlogPostSection } from "./BlogPostSection";
 
 // --------------------------------------------------------
 // Responsive image: desktop (md+) vs mobile
@@ -307,16 +309,50 @@ const StickySidebarSection = ({ project }: { project: Project }) => {
 // --------------------------------------------------------
 // Main Component that maps projects to different layouts
 // --------------------------------------------------------
-export const ExploratoryProjects = () => {
+export const ExploratoryProjects = ({ posts = [] }: { posts?: Doc<"posts">[] }) => {
+  // Build combined array
+  const combinedItems: Array<{ type: 'project'; data: Project; projectIndex: number } | { type: 'post'; data: Doc<"posts"> }> = [];
+  
+  const N = projects.length;
+  // If we have 2 posts, insert at ~1/3 and ~2/3
+  const insertIndex1 = Math.floor(N / 3);
+  const insertIndex2 = Math.floor((2 * N) / 3);
+
+  let postCount = 0;
+  projects.forEach((project, i) => {
+    // Insert post BEFORE this project if it's the target index
+    if (posts.length > postCount) {
+      if (postCount === 0 && i === insertIndex1) {
+        combinedItems.push({ type: 'post', data: posts[postCount] });
+        postCount++;
+      } else if (postCount === 1 && i === insertIndex2) {
+        combinedItems.push({ type: 'post', data: posts[postCount] });
+        postCount++;
+      }
+    }
+    
+    combinedItems.push({ type: 'project', data: project, projectIndex: i });
+  });
+
+  // If there are leftover posts (e.g. projects array is empty or too short), just append them
+  while (postCount < posts.length) {
+    combinedItems.push({ type: 'post', data: posts[postCount] });
+    postCount++;
+  }
+
   return (
     <div className="flex flex-col w-full">
-      {projects.map((project, index) => {
-        // Cycle through the 3 layouts
-        const layoutType = index % 3;
+      {combinedItems.map((item) => {
+        if (item.type === 'post') {
+          return <BlogPostSection key={item.data._id} post={item.data} />;
+        }
+
+        // Cycle through the 3 layouts for projects
+        const layoutType = item.projectIndex % 3;
         
-        if (layoutType === 0) return <DiagonalSection key={project.id} project={project} />;
-        if (layoutType === 1) return <CenterParallaxSection key={project.id} project={project} />;
-        return <StickySidebarSection key={project.id} project={project} />;
+        if (layoutType === 0) return <DiagonalSection key={item.data.id} project={item.data} />;
+        if (layoutType === 1) return <CenterParallaxSection key={item.data.id} project={item.data} />;
+        return <StickySidebarSection key={item.data.id} project={item.data} />;
       })}
     </div>
   );
