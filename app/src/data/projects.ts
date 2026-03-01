@@ -36,6 +36,17 @@ export const projects: Array<Project> = [
     rowSpan: 2,
   },
   {
+    id: "glennsvanberg",
+    name: "glennsvanberg.se",
+    tags: ["Portfolio", "Personligt"],
+    description: "Min personliga portfolio där jag håller koll på mina projekt och idéer.",
+    url: "https://glennsvanberg.se",
+    imageUrlDesktop: "/glennsvanberg-desktop.png",
+    imageUrlMobile: "/glennsvanberg-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
     id: "trackaton",
     name: "Trackaton",
     tags: ["Analys", "Stordata"],
