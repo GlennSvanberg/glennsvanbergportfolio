@@ -45,4 +45,21 @@ export default defineSchema({
     context: v.string(),
     updatedAt: v.number(),
   }).index("by_key", ["key"]),
+  tweetChats: defineTable({
+    title: v.string(),
+    messages: v.array(
+      v.object({
+        role: v.union(v.literal("user"), v.literal("assistant")),
+        content: v.string(),
+      })
+    ),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_updated", ["updatedAt"]),
+  tweetSettings: defineTable({
+    key: v.literal("default"),
+    instructions: v.string(),
+    context: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 });

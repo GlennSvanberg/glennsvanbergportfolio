@@ -17,6 +17,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminTweetsIndexRouteImport } from './routes/admin/tweets/index'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin/blog/index'
 
 const AnotherPageRoute = AnotherPageRouteImport.update({
@@ -59,6 +60,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminTweetsIndexRoute = AdminTweetsIndexRouteImport.update({
+  id: '/tweets/',
+  path: '/tweets/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/tweets/': typeof AdminTweetsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/admin/blog': typeof AdminBlogIndexRoute
+  '/admin/tweets': typeof AdminTweetsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/tweets/': typeof AdminTweetsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/blog/'
     | '/admin/blog/'
+    | '/admin/tweets/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/admin/blog'
+    | '/admin/tweets'
   id:
     | '__root__'
     | '/'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/blog/'
     | '/admin/blog/'
+    | '/admin/tweets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -199,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/tweets/': {
+      id: '/admin/tweets/'
+      path: '/tweets'
+      fullPath: '/admin/tweets/'
+      preLoaderRoute: typeof AdminTweetsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/blog/': {
       id: '/admin/blog/'
       path: '/blog'
@@ -214,6 +233,7 @@ interface AdminRouteRouteChildren {
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminBlogIndexRoute: typeof AdminBlogIndexRoute
+  AdminTweetsIndexRoute: typeof AdminTweetsIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
@@ -221,6 +241,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminBlogIndexRoute: AdminBlogIndexRoute,
+  AdminTweetsIndexRoute: AdminTweetsIndexRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(

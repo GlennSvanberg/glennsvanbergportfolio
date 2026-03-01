@@ -29,6 +29,12 @@ function AdminLayout() {
               Blog
             </Link>
             <Link
+              to="/admin/tweets"
+              className="min-h-[44px] flex items-center text-sm text-muted hover:text-foreground transition-colors"
+            >
+              Tweets
+            </Link>
+            <Link
               to="/admin/settings"
               className="min-h-[44px] flex items-center text-sm text-muted hover:text-foreground transition-colors"
             >

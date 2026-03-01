@@ -8,6 +8,15 @@ The admin blog studio at `/admin/blog` uses hardcoded credentials. Set these in 
 - `ADMIN_PASSWORD` – admin password
 - `OPENAI_API_KEY` – for the AI blog assistant (Write with AI)
 
+## X/Twitter API integration
+
+For posting tweets from the admin area, you need to configure OAuth 1.0a credentials. Generate these at developer.x.com and set them in the Convex Dashboard:
+
+- `X_API_APP_KEY` – API Key (Consumer Key)
+- `X_API_APP_SECRET` – API Secret (Consumer Secret)
+- `X_API_ACCESS_TOKEN` – Access Token
+- `X_API_ACCESS_SECRET` – Access Token Secret
+
 Write your Convex functions here.
 See https://docs.convex.dev/functions for more.
 

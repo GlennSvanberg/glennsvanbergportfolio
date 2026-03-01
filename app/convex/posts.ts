@@ -52,6 +52,25 @@ export const listForAdmin = query({
   },
 });
 
+export const listTitlesForTweetContext = query({
+  args: {
+    token: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await validateToken(ctx, args.token);
+    const posts = await ctx.db
+      .query("posts")
+      .withIndex("by_published")
+      .order("desc")
+      .take(10);
+    return posts.map(p => ({
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+    }));
+  },
+});
+
 export const getBySlug = query({
   args: {
     slug: v.string(),
