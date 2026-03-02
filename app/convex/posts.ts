@@ -71,6 +71,21 @@ export const listTitlesForTweetContext = query({
   },
 });
 
+export const listForSitemap = query({
+  args: {},
+  handler: async (ctx) => {
+    const posts = await ctx.db
+      .query("posts")
+      .withIndex("by_published")
+      .order("desc")
+      .collect();
+    return posts.map((p) => ({
+      slug: p.slug,
+      updatedAt: p.updatedAt ?? p.publishedAt,
+    }));
+  },
+});
+
 export const getBySlug = query({
   args: {
     slug: v.string(),
