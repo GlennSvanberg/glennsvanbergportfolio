@@ -3,8 +3,16 @@ import { useEffect, useState } from 'react'
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { ExploratoryProjects } from '../components/ExploratoryProjects'
+import { buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/')({
+  head: () =>
+    buildPageMeta({
+      title: 'Portfolio och experiment',
+      description:
+        'Glenn Svanbergs portfolio med appar, experiment och blogginlagg om byggande, larande och ideer.',
+      path: '/',
+    }),
   component: Home,
 })
 

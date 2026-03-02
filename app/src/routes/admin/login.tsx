@@ -1,10 +1,18 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation } from "convex/react";
+import { useState } from "react";
 import { api } from "../../../convex/_generated/api";
 import { setAdminToken } from "~/lib/useAdminToken";
-import { useState } from "react";
+import { NOINDEX_ROBOTS, buildPageMeta } from "~/lib/seo";
 
 export const Route = createFileRoute("/admin/login")({
+  head: () =>
+    buildPageMeta({
+      title: "Admin login",
+      description: "Inloggning for administration.",
+      path: "/admin/login",
+      robots: NOINDEX_ROBOTS,
+    }),
   component: AdminLogin,
 });
 

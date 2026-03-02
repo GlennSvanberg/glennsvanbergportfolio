@@ -1,7 +1,15 @@
-import { createFileRoute, Link, redirect, Outlet } from "@tanstack/react-router";
+import { Link, Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { ADMIN_TOKEN_KEY } from "~/lib/useAdminToken";
+import { NOINDEX_ROBOTS, buildPageMeta } from "~/lib/seo";
 
 export const Route = createFileRoute("/admin")({
+  head: () =>
+    buildPageMeta({
+      title: "Admin",
+      description: "Administrationsyta for glennsvanberg.se.",
+      path: "/admin",
+      robots: NOINDEX_ROBOTS,
+    }),
   beforeLoad: ({ location }) => {
     if (typeof window === "undefined") return;
     const isLoginPage = location.pathname === "/admin/login";

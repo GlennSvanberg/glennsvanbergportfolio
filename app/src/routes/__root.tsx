@@ -1,13 +1,20 @@
 import {
   HeadContent,
+  Link,
   Outlet,
   Scripts,
   createRootRouteWithContext,
-  Link,
 } from '@tanstack/react-router'
 import * as React from 'react'
 import type { QueryClient } from '@tanstack/react-query'
 import appCss from '~/styles/app.css?url'
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_ROBOTS,
+  SITE_NAME,
+  personJsonLd,
+  webSiteJsonLd,
+} from '~/lib/seo'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -22,31 +29,37 @@ export const Route = createRootRouteWithContext<{
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Glenn Svanberg',
+        name: 'theme-color',
+        content: '#000000',
+      },
+      {
+        title: SITE_NAME,
+      },
+      {
+        name: 'description',
+        content: DEFAULT_DESCRIPTION,
+      },
+      {
+        name: 'robots',
+        content: DEFAULT_ROBOTS,
+      },
+      {
+        property: 'og:locale',
+        content: 'sv_SE',
+      },
+      {
+        property: 'og:site_name',
+        content: SITE_NAME,
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary',
       },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: '/apple-touch-icon.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        href: '/favicon-32x32.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: '/favicon-16x16.png',
-      },
-      { rel: 'manifest', href: '/site.webmanifest', color: '#000000' },
+      { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      { rel: 'icon', href: '/favicon-32x32.png' },
     ],
   }),
   notFoundComponent: () => <div>Sidan hittades inte</div>,
@@ -79,9 +92,17 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="sv">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body>
         {children}

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /anotherPage
+
+Sitemap: https://glennsvanberg.se/sitemap.xml
+Host: glennsvanberg.se

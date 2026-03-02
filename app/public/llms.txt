@@ -1,0 +1,20 @@
+# Glenn Svanberg
+
+> Personal portfolio and blog for Glenn Svanberg.
+
+## Canonical site
+- https://glennsvanberg.se/
+
+## Main sections
+- https://glennsvanberg.se/
+- https://glennsvanberg.se/blog
+
+## Crawl policy
+- Allowed: /, /blog, /blog/*
+- Do not crawl: /admin, /admin/*, /anotherPage
+
+## Sitemap
+- https://glennsvanberg.se/sitemap.xml
+
+## Language
+- Primary language: Swedish (sv-SE)

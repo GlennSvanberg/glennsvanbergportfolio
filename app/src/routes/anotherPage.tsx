@@ -3,8 +3,16 @@ import { useAction } from 'convex/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { convexQuery } from '@convex-dev/react-query'
 import { api } from '../../convex/_generated/api'
+import { NOINDEX_ROBOTS, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/anotherPage')({
+  head: () =>
+    buildPageMeta({
+      title: 'Convex demo',
+      description: 'Intern demosida for Convex + TanStack Start.',
+      path: '/anotherPage',
+      robots: NOINDEX_ROBOTS,
+    }),
   component: AnotherPage,
 })
 
