@@ -1,11 +1,19 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useQuery } from "convex/react";
+import { ArrowLeft, Check, Share2 } from "lucide-react";
+import { useState } from "react";
 import { api } from "../../../convex/_generated/api";
 import { MarkdownRenderer } from "../../components/MarkdownRenderer";
-import { ArrowLeft, Share2, Check } from "lucide-react";
-import { useState } from "react";
+import { buildBlogPostingJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/blog/$slug')({
+  head: ({ params }) =>
+    buildPageMeta({
+      title: `Blogg: ${params.slug.replace(/-/g, ' ')}`,
+      description: 'Las ett blogginlagg fran Glenn Svanbergs experiment och projekt.',
+      path: `/blog/${params.slug}`,
+      ogType: 'article',
+    }),
   component: BlogPost,
 })
 
@@ -54,8 +62,22 @@ function BlogPost() {
     );
   }
 
+  const blogPostingJsonLd = buildBlogPostingJsonLd({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    body: post.body,
+    tags: post.tags,
+    publishedAt: post.publishedAt,
+    updatedAt: post.updatedAt,
+  })
+
   return (
     <main className="min-h-screen flex flex-col bg-[var(--background)] py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
       <article className="container mx-auto px-4 md:px-8 max-w-4xl">
         <Link 
           to="/blog" 

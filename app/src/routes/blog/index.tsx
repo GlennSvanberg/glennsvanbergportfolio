@@ -1,10 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from "convex/react";
+import { motion } from 'framer-motion';
 import { api } from "../../../convex/_generated/api";
 import { PostCard } from '../../components/PostCard'
-import { motion } from 'framer-motion';
+import { blogJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/blog/')({
+  head: () =>
+    buildPageMeta({
+      title: 'Blogg',
+      description:
+        'Lar dig mer om Glenn Svanbergs experiment, appar och tankar inom utveckling, AI och produktbygge.',
+      path: '/blog',
+    }),
   component: BlogIndex,
 })
 
@@ -13,6 +21,10 @@ function BlogIndex() {
 
   return (
     <main className="min-h-screen flex flex-col bg-[var(--background)] py-24 md:py-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
       <div className="container mx-auto px-4 md:px-8 max-w-5xl">
         <header className="mb-16 md:mb-24 text-center flex flex-col items-center">
           <motion.div
