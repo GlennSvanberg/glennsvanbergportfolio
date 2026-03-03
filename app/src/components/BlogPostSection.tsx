@@ -113,6 +113,7 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 mt-6">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
+                trackaton-on-click="toggle-blog-preview"
                 className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max"
               >
                 {isExpanded ? (
@@ -128,7 +129,12 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
                 )}
               </button>
 
-              <Link to="/blog/$slug" params={{ slug: post.slug }} className="inline-flex items-center gap-2 text-muted/60 hover:text-emerald-400 font-mono text-sm uppercase tracking-widest transition-colors duration-300 group">
+              <Link
+                to="/blog/$slug"
+                params={{ slug: post.slug }}
+                trackaton-on-click="open-blog-post"
+                className="inline-flex items-center gap-2 text-muted/60 hover:text-emerald-400 font-mono text-sm uppercase tracking-widest transition-colors duration-300 group"
+              >
                 Gå till inlägg
                 <ArrowUpRight className="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
@@ -136,6 +142,7 @@ export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
               <button
                 type="button"
                 onClick={copyLink}
+                trackaton-on-click="copy-blog-link"
                 className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-primary/10 hover:border-emerald-400/50 text-muted/60 hover:text-emerald-400 transition-colors duration-300"
                 title="Kopiera länk"
               >

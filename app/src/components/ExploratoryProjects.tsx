@@ -157,7 +157,13 @@ const DiagonalSection = ({ project }: { project: Project }) => {
               </p>
             </div>
             
-            <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest mt-4 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              trackaton-on-click="primary-cta"
+              className="inline-flex items-center gap-3 text-primary font-mono font-bold text-lg uppercase tracking-widest mt-4 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 group w-max"
+            >
               Utforska projekt
               <ArrowUpRight className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
@@ -229,7 +235,13 @@ const CenterParallaxSection = ({ project }: { project: Project }) => {
             "{project.description}"
           </p>
 
-          <a href={project.url} target="_blank" rel="noopener noreferrer" className="relative overflow-hidden px-10 py-4 border border-primary text-primary font-mono text-sm uppercase tracking-widest group z-10 hover:border-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            trackaton-on-click="primary-cta"
+            className="relative overflow-hidden px-10 py-4 border border-primary text-primary font-mono text-sm uppercase tracking-widest group z-10 hover:border-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300"
+          >
             <span className="relative z-10 group-hover:text-black transition-colors duration-300 font-bold">Starta projekt</span>
             <div className="absolute inset-0 bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
           </a>
@@ -278,7 +290,13 @@ const StickySidebarSection = ({ project }: { project: Project }) => {
                 ))}
               </div>
               
-              <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] hover:drop-shadow-[0_0_12px_rgba(52,211,153,0.8)] flex items-center gap-4 text-lg font-mono font-bold transition-all duration-300 w-max group mt-8">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                trackaton-on-click="primary-cta"
+                className="text-emerald-400 hover:text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] hover:drop-shadow-[0_0_12px_rgba(52,211,153,0.8)] flex items-center gap-4 text-lg font-mono font-bold transition-all duration-300 w-max group mt-8"
+              >
                 <div className="w-12 h-12 rounded-full border-2 border-emerald-400/80 flex items-center justify-center group-hover:bg-emerald-400 group-hover:border-emerald-400 group-hover:text-black transition-all duration-300">
                   <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
