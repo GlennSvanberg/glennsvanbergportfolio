@@ -72,11 +72,19 @@ function RootComponent() {
       <div className="flex flex-col min-h-screen">
         <header className="border-b border-primary/10 bg-[var(--background)] text-[var(--foreground)] px-4 py-3 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <Link to="/" className="font-mono uppercase tracking-widest text-sm hover:text-emerald-400 transition-colors">
+            <Link
+              to="/"
+              trackaton-on-click="nav-home"
+              className="font-mono uppercase tracking-widest text-sm hover:text-emerald-400 transition-colors"
+            >
               Glenn Svanberg
             </Link>
             <nav>
-              <Link to="/blog" className="font-mono uppercase tracking-widest text-sm text-muted hover:text-emerald-400 transition-colors">
+              <Link
+                to="/blog"
+                trackaton-on-click="nav-blog"
+                className="font-mono uppercase tracking-widest text-sm text-muted hover:text-emerald-400 transition-colors"
+              >
                 Blog
               </Link>
             </nav>
@@ -94,6 +102,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sv">
       <head>
+        <meta
+          name="google-site-verification"
+          content="2ExHAhWJb7V-X99Ywj7kbUOq0F3ntivTe_TToxdXXCc"
+        />
+        <script
+          src="https://www.trackaton.com/track.js"
+          data-website-id="jd72ctkphffch0p4g19c0jcehh827hjz"
+          data-endpoint="https://resolute-orca-949.convex.site/api/e"
+          async
+        />
         <HeadContent />
         <script
           type="application/ld+json"
