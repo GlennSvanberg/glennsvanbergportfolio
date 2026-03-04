@@ -200,4 +200,15 @@ export const projects: Array<Project> = [
     colSpan: 2,
     rowSpan: 1,
   },
+  {
+    id: "merchchat",
+    name: "Merchchat",
+    tags: ["E-handel", "Chat"],
+    description: "Ett experiment i hur ett merch creator-verktyg kan fungera som en chattupplevelse. Jag är normalt väldigt skeptisk till chat som gränssnitt, men här tror jag att det kan vara användbart.",
+    url: "https://merch.glennsvanberg.se",
+    imageUrlDesktop: "/merchchat-desktop.png",
+    imageUrlMobile: "/merchchat-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
 ];
