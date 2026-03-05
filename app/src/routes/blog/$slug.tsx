@@ -6,14 +6,25 @@ import { api } from "../../../convex/_generated/api";
 import { MarkdownRenderer } from "../../components/MarkdownRenderer";
 import { buildBlogPostingJsonLd, buildPageMeta } from '~/lib/seo'
 
+function formatSlugForMeta(slug: string): string {
+  return decodeURIComponent(slug)
+    .split('-')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
 export const Route = createFileRoute('/blog/$slug')({
-  head: ({ params }) =>
-    buildPageMeta({
-      title: `Blogg: ${params.slug.replace(/-/g, ' ')}`,
-      description: 'Las ett blogginlagg fran Glenn Svanbergs experiment och projekt.',
+  head: ({ params }) => {
+    const readableTitle = formatSlugForMeta(params.slug)
+
+    return buildPageMeta({
+      title: readableTitle,
+      description: `Las om ${readableTitle} pa Glenn Svanbergs blogg om experiment, AI och produktbygge.`,
       path: `/blog/${params.slug}`,
       ogType: 'article',
-    }),
+    })
+  },
   component: BlogPost,
 })
 
