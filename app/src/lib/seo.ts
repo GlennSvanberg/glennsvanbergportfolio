@@ -2,6 +2,8 @@ export const SITE_NAME = 'Glenn Svanberg'
 export const SITE_URL = 'https://glennsvanberg.se'
 export const SITE_LANGUAGE = 'sv-SE'
 export const SITE_LOCALE = 'sv_SE'
+export const DEFAULT_OG_IMAGE_PATH = '/glennsvanberg-desktop.png'
+export const DEFAULT_OG_IMAGE_ALT = 'Glenn Svanbergs portfolio med appar och experiment'
 
 export const DEFAULT_DESCRIPTION =
   'Personlig portfolio av Glenn Svanberg med experiment, appar, ideer och blogginlagg.'
@@ -31,12 +33,16 @@ type PageMetaInput = {
   path?: string
   robots?: string
   ogType?: 'website' | 'article'
+  imagePath?: string
+  imageAlt?: string
 }
 
 export function buildPageMeta(input: PageMetaInput) {
   const title = buildPageTitle(input.title)
   const description = input.description ?? DEFAULT_DESCRIPTION
   const url = absoluteUrl(input.path ?? '/')
+  const imageUrl = absoluteUrl(input.imagePath ?? DEFAULT_OG_IMAGE_PATH)
+  const imageAlt = input.imageAlt ?? DEFAULT_OG_IMAGE_ALT
 
   return {
     meta: [
@@ -49,9 +55,14 @@ export function buildPageMeta(input: PageMetaInput) {
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
       { property: 'og:url', content: url },
-      { name: 'twitter:card', content: 'summary' },
+      { property: 'og:image', content: imageUrl },
+      { property: 'og:image:secure_url', content: imageUrl },
+      { property: 'og:image:alt', content: imageAlt },
+      { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: imageUrl },
+      { name: 'twitter:image:alt', content: imageAlt },
     ],
     links: [{ rel: 'canonical', href: url }],
   }

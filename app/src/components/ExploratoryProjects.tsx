@@ -19,6 +19,10 @@ function getProjectImageUrls(project: Project): { desktop: string; mobile: strin
   return desktop ? { desktop, mobile: mobile ?? desktop } : null;
 }
 
+function getProjectImageAlt(project: Project): string {
+  return `Skarmbild av ${project.name}: ${project.description}`;
+}
+
 function ResponsiveProjectImg({
   project,
   alt,
@@ -38,13 +42,29 @@ function ResponsiveProjectImg({
   const imgClassName = cn("block w-full h-full", className);
 
   if (!useResponsive) {
-    return <img src={desktop} alt={alt} className={imgClassName} style={style} />;
+    return (
+      <img
+        src={desktop}
+        alt={alt}
+        className={imgClassName}
+        style={style}
+        loading="lazy"
+        decoding="async"
+      />
+    );
   }
 
   return (
     <picture className="block w-full h-full">
       <source media={`(max-width: ${PROJECT_IMAGE_BREAKPOINT - 1}px)`} srcSet={mobile} />
-      <img src={desktop} alt={alt} className={imgClassName} style={style} />
+      <img
+        src={desktop}
+        alt={alt}
+        className={imgClassName}
+        style={style}
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
   );
 }
@@ -69,7 +89,7 @@ const ProjectImage = ({ project, className }: { project: Project; className?: st
           >
             <ResponsiveProjectImg
               project={project}
-              alt={project.name}
+              alt={getProjectImageAlt(project)}
               className="w-full h-full object-contain md:object-cover object-top md:object-center"
             />
           </motion.div>
