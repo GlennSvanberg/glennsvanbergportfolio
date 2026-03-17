@@ -6,8 +6,8 @@ import {
   createRootRouteWithContext,
 } from '@tanstack/react-router'
 import * as React from 'react'
-import type { QueryClient } from '@tanstack/react-query'
 import { AtSign, Linkedin, Phone, Twitter } from 'lucide-react'
+import type { QueryClient } from '@tanstack/react-query'
 import appCss from '~/styles/app.css?url'
 import {
   DEFAULT_DESCRIPTION,
