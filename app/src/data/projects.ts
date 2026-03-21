@@ -1,3 +1,7 @@
+/**
+ * Taggar är begränsade till en gemensam uppsättning så filtret i portfolion inte exploderar:
+ * AI · Data · E-handel · Marknadsföring · Personligt · Realtid · Spel · Verktyg
+ */
 export type Project = {
   id: string;
   name: string;
@@ -16,7 +20,7 @@ export const projects: Array<Project> = [
   {
     id: "allaheterglenn",
     name: "Allaheterglenn",
-    tags: ["React", "Viral marknadsföring"],
+    tags: ["Marknadsföring"],
     description: "Ett viralt experiment kring Göteborgs mest kända namn. Utforskar lokal kultur och viral spridning genom humor.",
     url: "https://allaheterglenn.se",
     imageUrlDesktop: "/allaheterglenn-desktop.png",
@@ -27,7 +31,7 @@ export const projects: Array<Project> = [
   {
     id: "qrbutik",
     name: "QRbutik",
-    tags: ["Betalningar", "Realtid"],
+    tags: ["E-handel", "Realtid"],
     description: "Ett system för friktionsfria beställningar via QR-koder. Fokus på snabba flöden och enkelhet utan app-nedladdningar.",
     url: "https://qrbutik.se",
     imageUrlDesktop: "/qrbutik-desktop.png",
@@ -38,7 +42,7 @@ export const projects: Array<Project> = [
   {
     id: "braian",
     name: "Braian",
-    tags: ["AI", "Kontextmedveten"],
+    tags: ["AI"],
     description: "Kontextmedveten AI – för närvarande mest chatbot med öppen kontext, men visionen är att tänka om hur vi interagerar med AI. \"Chatbots finns bara för att utvecklare var för lata att bygga något riktigt.\"",
     url: "https://braian.io",
     imageUrlDesktop: "/braian-desktop.png",
@@ -49,7 +53,7 @@ export const projects: Array<Project> = [
   {
     id: "glennsvanberg",
     name: "glennsvanberg.se",
-    tags: ["Portfolio", "Personligt"],
+    tags: ["Personligt"],
     description: "Min personliga portfolio där jag håller koll på mina projekt och idéer.",
     url: "https://glennsvanberg.se",
     imageUrlDesktop: "/glennsvanberg-desktop.png",
@@ -60,7 +64,7 @@ export const projects: Array<Project> = [
   {
     id: "trackaton",
     name: "Trackaton",
-    tags: ["Analys", "Stordata"],
+    tags: ["Data"],
     description: "Min egenutvecklade motor för trafikspårning. Byggd för att förstå dataflöden och integritet på djupet, bortom standardverktygen.",
     url: "https://trackaton.com",
     imageUrlDesktop: "/trackaton-desktop.png",
@@ -71,7 +75,7 @@ export const projects: Array<Project> = [
   {
     id: "photo",
     name: "Glennerator",
-    tags: ["AI", "Bildgenerering"],
+    tags: ["AI"],
     description: "Glennerator - en AI-driven generator för... ja, mig. Ett lekfullt sätt att utforska generativ AI och personligt varumärke.",
     url: "https://glennsvanberg.se",
     imageUrlDesktop: "/photo-desktop.png",
@@ -82,7 +86,7 @@ export const projects: Array<Project> = [
   {
     id: "malasidor",
     name: "Målasidor",
-    tags: ["AI", "Bildgenerering"],
+    tags: ["AI"],
     description: "En AI-webbplats där man kan förvandla foton till målasidor som barn kan färglägga.",
     url: "https://målasidor.se",
     imageUrlDesktop: "/malasidor-desktop.png",
@@ -93,7 +97,7 @@ export const projects: Array<Project> = [
   {
     id: "grzaniec",
     name: "Grzaniec",
-    tags: ["Personligt", "Vinterdryck"],
+    tags: ["Personligt"],
     description: "Jag tycker detta är den bästa vinterdrycken och vill att fler i Sverige får upp ögonen för den. Man behöver bara lite kryddor och en ljus lager – ingen logistik.",
     url: "https://grzaniec.se",
     imageUrlDesktop: "/grzaniec-desktop.png",
@@ -104,7 +108,7 @@ export const projects: Array<Project> = [
   {
     id: "allergy",
     name: "Allergy Scanner",
-    tags: ["Experiment", "Streckkoder", "API"],
+    tags: ["Verktyg"],
     description: "Ett experiment för att testa streckkoder och livsmedels-API:er. Ange dina allergier, skanna valfri streckkod – så får du veta om produkten är säker eller inte.",
     url: "https://allergy.glennsvanberg.se",
     imageUrlDesktop: "/allergy-desktop.png",
@@ -115,7 +119,7 @@ export const projects: Array<Project> = [
   {
     id: "next",
     name: "Ping",
-    tags: ["Realtid", "Samarbete"],
+    tags: ["Realtid"],
     description: "En minimalistisk ping-app för team. Bara skicka notiser – inget annat. Jag byggde den när vi spelade in ett webinar på distans och behövde signalera 'din tur att prata' eller 'räck upp handen' med ett knapptryck – utan att visa handen på skärmen eftersom vi delade skärm.",
     url: "https://next.glennsvanberg.se",
     imageUrlDesktop: "/next-desktop.png",
@@ -126,7 +130,7 @@ export const projects: Array<Project> = [
   {
     id: "csvexcel",
     name: "CSV till Excel",
-    tags: ["Verktyg", "Webb"],
+    tags: ["Verktyg"],
     description:
       "Enkel CSV-till-Excel-konverterare: släpp en fil och ladda ner som Excel. Körs helt i webbläsaren och finns även som skrivbordsapp.",
     url: "https://excel.glennsvanberg.se",
@@ -138,7 +142,7 @@ export const projects: Array<Project> = [
   {
     id: "teddy",
     name: "Teddy",
-    tags: ["Plats", "Realtid"],
+    tags: ["Realtid"],
     description: "En gosedjursletare för barn – inte ett riktigt verktyg utan ett lekfullt sätt att söka plushdjur. Enkel och rolig utan krångel.",
     url: "https://teddy.glennsvanberg.se",
     imageUrlDesktop: "/teddy-desktop.png",
@@ -149,7 +153,7 @@ export const projects: Array<Project> = [
   {
     id: "avatar",
     name: "Avatar",
-    tags: ["AI", "Bildgenerering"],
+    tags: ["AI"],
     description: "Ladda upp en bild och transformera den till stiliga avatars. AI-driven bildgenerering i webbläsaren.",
     url: "https://avatar.glennsvanberg.se",
     imageUrlDesktop: "/avatar-desktop.png",
@@ -160,7 +164,7 @@ export const projects: Array<Project> = [
   {
     id: "pair",
     name: "PairUp",
-    tags: ["Realtid", "Samarbete"],
+    tags: ["Realtid"],
     description: "PairUp - slumpa ihop teammedlemmar för parprogrammering eller grupparbete. Skriv in namn och kör igång.",
     url: "https://pair.glennsvanberg.se",
     imageUrlDesktop: "/pair-desktop.png",
@@ -171,7 +175,7 @@ export const projects: Array<Project> = [
   {
     id: "solostream",
     name: "Solostream",
-    tags: ["Ljud", "AI"],
+    tags: ["AI"],
     description: "En alltid-på autogenererad radiokanal dedikerad för exakt det du vill lyssna på.",
     url: "https://stream.glennsvanberg.se",
     imageUrlDesktop: "/solostream-desktop.png",
@@ -182,7 +186,7 @@ export const projects: Array<Project> = [
   {
     id: "icon",
     name: "Icon",
-    tags: ["Design", "Verktyg"],
+    tags: ["Verktyg"],
     description: "Generera ikonpaket för din webbplats. Ett verktyg för att skapa och exportera ikonuppsättningar.",
     url: "https://icon.glennsvanberg.se",
     imageUrlDesktop: "/icon-desktop.png",
@@ -193,7 +197,7 @@ export const projects: Array<Project> = [
   {
     id: "idea",
     name: "Idea",
-    tags: ["Samarbete", "Realtid"],
+    tags: ["Realtid"],
     description: "Ett samarbetsverktyg för att låta idéer växa. Som Tinder för idéer – swipea, rösta och utveckla tillsammans.",
     url: "https://idea.glennsvanberg.se",
     imageUrlDesktop: "/idea-desktop.png",
@@ -204,7 +208,7 @@ export const projects: Array<Project> = [
   {
     id: "escape",
     name: "Escape",
-    tags: ["Spel", "Pussel"],
+    tags: ["Spel"],
     description: "Ett online escape room – lösa gåtor och klura ut ledtrådar tillsammans i webbläsaren.",
     url: "https://escape.glennsvanberg.se",
     imageUrlDesktop: "/escape-desktop.png",
@@ -215,7 +219,7 @@ export const projects: Array<Project> = [
   {
     id: "hairstyle",
     name: "StyleMyHair",
-    tags: ["AI", "Bildgenerering"],
+    tags: ["AI"],
     description: "AI-driven virtuell hårkonsultation – prova olika frisyrer och färger med generativ AI.",
     url: "https://hairstyle.lovable.app",
     imageUrlDesktop: "/hairstyle-desktop.png",
@@ -226,7 +230,7 @@ export const projects: Array<Project> = [
   {
     id: "boardio",
     name: "Boardio",
-    tags: ["Canvas", "Tryck på beställning"],
+    tags: ["E-handel"],
     description: "Plattform för att designa och beställa skräddarsydda brädspel. Ett komplext projekt som kombinerar e-handel med avancerade designverktyg i webbläsaren.",
     url: "https://boardio.io",
     imageUrlDesktop: "/boardio-desktop.png",
@@ -237,7 +241,7 @@ export const projects: Array<Project> = [
   {
     id: "merchchat",
     name: "Merchchat",
-    tags: ["E-handel", "Chat"],
+    tags: ["E-handel"],
     description: "Ett experiment i hur ett merch creator-verktyg kan fungera som en chattupplevelse. Jag är normalt väldigt skeptisk till chat som gränssnitt, men här tror jag att det kan vara användbart.",
     url: "https://merch.glennsvanberg.se",
     imageUrlDesktop: "/merchchat-desktop.png",

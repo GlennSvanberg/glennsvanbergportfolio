@@ -1,72 +1,26 @@
-import * as React from "react";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { cn } from "../lib/utils";
 import { BlogPostSection } from "./BlogPostSection";
+import { ProjectDirectory } from "./ProjectDirectory";
+import { ResponsiveProjectImg, getProjectImageAlt, getProjectImageUrls } from "./projectMedia";
 import type { Project } from "../data/projects";
 import type { Doc } from "../../convex/_generated/dataModel";
 
-// --------------------------------------------------------
-// Responsive image: desktop (md+) vs mobile
-// --------------------------------------------------------
-const PROJECT_IMAGE_BREAKPOINT = 768; // px, matches Tailwind md:
-
-function getProjectImageUrls(project: Project): { desktop: string; mobile: string } | null {
-  const desktop = project.imageUrlDesktop ?? project.imageUrl;
-  const mobile = project.imageUrlMobile ?? project.imageUrl;
-  return desktop ? { desktop, mobile: mobile ?? desktop } : null;
+function normalizeForSearch(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/å/g, "a")
+    .replace(/ä/g, "a")
+    .replace(/ö/g, "o");
 }
 
-function getProjectImageAlt(project: Project): string {
-  return `Skarmbild av ${project.name}: ${project.description}`;
-}
-
-function ResponsiveProjectImg({
-  project,
-  alt,
-  className,
-  style,
-}: {
-  project: Project;
-  alt: string;
-  className?: string;
-  style?: React.CSSProperties;
-}) {
-  const urls = getProjectImageUrls(project);
-  if (!urls) return null;
-
-  const { desktop, mobile } = urls;
-  const useResponsive = desktop !== mobile;
-  const imgClassName = cn("block w-full h-full", className);
-
-  if (!useResponsive) {
-    return (
-      <img
-        src={desktop}
-        alt={alt}
-        className={imgClassName}
-        style={style}
-        loading="lazy"
-        decoding="async"
-      />
-    );
-  }
-
-  return (
-    <picture className="block w-full h-full">
-      <source media={`(max-width: ${PROJECT_IMAGE_BREAKPOINT - 1}px)`} srcSet={mobile} />
-      <img
-        src={desktop}
-        alt={alt}
-        className={imgClassName}
-        style={style}
-        loading="lazy"
-        decoding="async"
-      />
-    </picture>
-  );
+function projectHaystack(project: Project): string {
+  return `${project.name} ${project.description} ${project.tags.join(" ")}`;
 }
 
 // --------------------------------------------------------
@@ -112,7 +66,7 @@ const ProjectImage = ({ project, className }: { project: Project; className?: st
 // --------------------------------------------------------
 // Layout 1: Diagonal Split with Large Typography
 // --------------------------------------------------------
-const DiagonalSection = ({ project }: { project: Project }) => {
+const DiagonalSection = ({ project, sectionId }: { project: Project; sectionId: string }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -124,7 +78,11 @@ const DiagonalSection = ({ project }: { project: Project }) => {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col justify-center overflow-hidden py-24 md:py-32">
+    <section
+      ref={ref}
+      id={sectionId}
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden py-24 md:py-32 scroll-mt-24 md:scroll-mt-28"
+    >
       {/* Background Diagonal Element */}
       <motion.div 
         style={{ y: y1 }}
@@ -203,7 +161,7 @@ const DiagonalSection = ({ project }: { project: Project }) => {
 // --------------------------------------------------------
 // Layout 2: Massive Center Parallax Text
 // --------------------------------------------------------
-const CenterParallaxSection = ({ project }: { project: Project }) => {
+const CenterParallaxSection = ({ project, sectionId }: { project: Project; sectionId: string }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -214,7 +172,11 @@ const CenterParallaxSection = ({ project }: { project: Project }) => {
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
   
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 bg-black border-y border-primary/10">
+    <section
+      ref={ref}
+      id={sectionId}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 bg-black border-y border-primary/10 scroll-mt-24 md:scroll-mt-28"
+    >
       
       {/* Massive Background Text */}
       <motion.div 
@@ -274,9 +236,12 @@ const CenterParallaxSection = ({ project }: { project: Project }) => {
 // --------------------------------------------------------
 // Layout 3: Sticky Sidebar & Scrolling Content
 // --------------------------------------------------------
-const StickySidebarSection = ({ project }: { project: Project }) => {
+const StickySidebarSection = ({ project, sectionId }: { project: Project; sectionId: string }) => {
   return (
-    <section className="relative min-h-[100vh] py-32 container mx-auto px-4 md:px-8 max-w-7xl">
+    <section
+      id={sectionId}
+      className="relative min-h-[100vh] py-32 container mx-auto px-4 md:px-8 max-w-7xl scroll-mt-24 md:scroll-mt-28"
+    >
       <div className="flex flex-col gap-12 md:gap-16 h-full relative">
         {/* Full width title */}
         <div className="w-full relative">
@@ -344,55 +309,125 @@ const StickySidebarSection = ({ project }: { project: Project }) => {
   );
 };
 
+function renderProjectSection(project: Project, layoutIndex: number) {
+  const sectionId = `project-${project.id}`;
+  const layoutType = layoutIndex % 3;
+  if (layoutType === 0) {
+    return <DiagonalSection key={project.id} project={project} sectionId={sectionId} />;
+  }
+  if (layoutType === 1) {
+    return <CenterParallaxSection key={project.id} project={project} sectionId={sectionId} />;
+  }
+  return <StickySidebarSection key={project.id} project={project} sectionId={sectionId} />;
+}
+
+export type ExploratoryProjectsProps = {
+  posts?: Array<Doc<"posts">>;
+  searchQuery: string;
+  activeTag: string | null;
+  onSearchQueryChange: (value: string) => void;
+  onActiveTagChange: (tag: string | null) => void;
+  /** When set (e.g. URL-driven filters), use for a single atomic reset instead of two updates */
+  onClearFilters?: () => void;
+};
 
 // --------------------------------------------------------
 // Main Component that maps projects to different layouts
 // --------------------------------------------------------
-export const ExploratoryProjects = ({ posts = [] }: { posts?: Array<Doc<"posts">> }) => {
-  // Build combined array
-  const combinedItems: Array<{ type: 'project'; data: Project; projectIndex: number } | { type: 'post'; data: Doc<"posts"> }> = [];
-  
+export const ExploratoryProjects = ({
+  posts = [],
+  searchQuery,
+  activeTag,
+  onSearchQueryChange,
+  onActiveTagChange,
+  onClearFilters: onClearFiltersProp,
+}: ExploratoryProjectsProps) => {
+  const uniqueTags = useMemo(() => {
+    const set = new Set<string>();
+    for (const p of projects) {
+      for (const t of p.tags) {
+        set.add(t);
+      }
+    }
+    return [...set].sort((a, b) => a.localeCompare(b, "sv"));
+  }, []);
+
+  const filteredProjects = useMemo(() => {
+    let list = projects;
+    if (activeTag) {
+      list = list.filter((p) => p.tags.includes(activeTag));
+    }
+    const q = searchQuery.trim();
+    if (q) {
+      const nq = normalizeForSearch(q);
+      list = list.filter((p) => normalizeForSearch(projectHaystack(p)).includes(nq));
+    }
+    return list;
+  }, [searchQuery, activeTag]);
+
+  const hasActiveFilter = searchQuery.trim().length > 0 || activeTag !== null;
+
+  const clearFilters = () => {
+    if (onClearFiltersProp) {
+      onClearFiltersProp();
+      return;
+    }
+    onSearchQueryChange("");
+    onActiveTagChange(null);
+  };
+
+  // Build combined array (blog interleaved) — only when no filter
+  const combinedItems: Array<
+    { type: "project"; data: Project; projectIndex: number } | { type: "post"; data: Doc<"posts"> }
+  > = [];
+
   const N = projects.length;
-  // If we have 2 posts, insert at ~1/3 and ~2/3
   const insertIndex1 = Math.floor(N / 3);
   const insertIndex2 = Math.floor((2 * N) / 3);
 
   let postCount = 0;
   projects.forEach((project, i) => {
-    // Insert post BEFORE this project if it's the target index
     if (posts.length > postCount) {
       if (postCount === 0 && i === insertIndex1) {
-        combinedItems.push({ type: 'post', data: posts[postCount] });
+        combinedItems.push({ type: "post", data: posts[postCount] });
         postCount++;
       } else if (postCount === 1 && i === insertIndex2) {
-        combinedItems.push({ type: 'post', data: posts[postCount] });
+        combinedItems.push({ type: "post", data: posts[postCount] });
         postCount++;
       }
     }
-    
-    combinedItems.push({ type: 'project', data: project, projectIndex: i });
+
+    combinedItems.push({ type: "project", data: project, projectIndex: i });
   });
 
-  // If there are leftover posts (e.g. projects array is empty or too short), just append them
   while (postCount < posts.length) {
-    combinedItems.push({ type: 'post', data: posts[postCount] });
+    combinedItems.push({ type: "post", data: posts[postCount] });
     postCount++;
   }
 
   return (
-    <div className="flex flex-col w-full">
-      {combinedItems.map((item) => {
-        if (item.type === 'post') {
-          return <BlogPostSection key={item.data._id} post={item.data} />;
-        }
+    <div className="flex w-full flex-col">
+      <ProjectDirectory
+        filteredProjects={filteredProjects}
+        totalProjectCount={projects.length}
+        uniqueTags={uniqueTags}
+        searchQuery={searchQuery}
+        onSearchQueryChange={onSearchQueryChange}
+        activeTag={activeTag}
+        onActiveTagChange={onActiveTagChange}
+        onClearFilters={clearFilters}
+        hasActiveFilter={hasActiveFilter}
+      />
 
-        // Cycle through the 3 layouts for projects
-        const layoutType = item.projectIndex % 3;
-        
-        if (layoutType === 0) return <DiagonalSection key={item.data.id} project={item.data} />;
-        if (layoutType === 1) return <CenterParallaxSection key={item.data.id} project={item.data} />;
-        return <StickySidebarSection key={item.data.id} project={item.data} />;
-      })}
+      {hasActiveFilter
+        ? filteredProjects.map((p) => renderProjectSection(p, projects.indexOf(p)))
+        : combinedItems.map((item) =>
+            item.type === "post" ? (
+              <BlogPostSection key={item.data._id} post={item.data} />
+            ) : (
+              renderProjectSection(item.data, item.projectIndex)
+            ),
+          )}
     </div>
   );
 };

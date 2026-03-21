@@ -6,6 +6,16 @@ import { ExploratoryProjects } from '../components/ExploratoryProjects'
 import { buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/')({
+  validateSearch: (raw: Record<string, unknown>): { q?: string; tag?: string } => {
+    const qRaw = raw.q;
+    const tagRaw = raw.tag;
+    const q = typeof qRaw === 'string' ? qRaw.trim() : undefined;
+    const tag = typeof tagRaw === 'string' ? tagRaw.trim() : undefined;
+    return {
+      q: q || undefined,
+      tag: tag || undefined,
+    };
+  },
   head: () =>
     buildPageMeta({
       title: 'Portfolio och experiment',
@@ -19,6 +29,9 @@ export const Route = createFileRoute('/')({
 function Home() {
   const [activeWordIndex, setActiveWordIndex] = useState(2);
   const words = ["Experiment", "Appar", "Idéer"];
+
+  const { q, tag } = Route.useSearch();
+  const navigate = Route.useNavigate();
 
   const featuredPosts = useQuery(api.posts.listFeatured) ?? [];
 
@@ -56,7 +69,32 @@ function Home() {
       </section>
 
       {/* Projects */}
-      <ExploratoryProjects posts={featuredPosts} />
+      <ExploratoryProjects
+        posts={featuredPosts}
+        searchQuery={q ?? ''}
+        activeTag={tag ?? null}
+        onSearchQueryChange={(value) =>
+          navigate({
+            search: (prev) => ({ ...prev, q: value.trim() ? value : undefined }),
+            replace: true,
+            resetScroll: false,
+          })
+        }
+        onActiveTagChange={(next) =>
+          navigate({
+            search: (prev) => ({ ...prev, tag: next ?? undefined }),
+            replace: true,
+            resetScroll: false,
+          })
+        }
+        onClearFilters={() =>
+          navigate({
+            search: (prev) => ({ ...prev, q: undefined, tag: undefined }),
+            replace: true,
+            resetScroll: false,
+          })
+        }
+      />
     </main>
   )
 }
