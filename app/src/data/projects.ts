@@ -124,6 +124,18 @@ export const projects: Array<Project> = [
     rowSpan: 1,
   },
   {
+    id: "csvexcel",
+    name: "CSV till Excel",
+    tags: ["Verktyg", "Webb"],
+    description:
+      "Enkel CSV-till-Excel-konverterare: släpp en fil och ladda ner som Excel. Körs helt i webbläsaren och finns även som skrivbordsapp.",
+    url: "https://excel.glennsvanberg.se",
+    imageUrlDesktop: "/csvexcel-desktop.png",
+    imageUrlMobile: "/csvexcel-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
     id: "teddy",
     name: "Teddy",
     tags: ["Plats", "Realtid"],
