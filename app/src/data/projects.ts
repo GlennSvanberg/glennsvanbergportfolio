@@ -18,6 +18,18 @@ export type Project = {
 
 export const projects: Array<Project> = [
   {
+    id: "scan",
+    name: "Scan",
+    tags: ["Verktyg"],
+    description:
+      "Gör mobilen till streckkodsläsare utan att behöva installera något. Ett experiment i hur man kan minska startsträckan – synka med QR och kör vidare.",
+    url: "https://scan.glennsvanberg.se",
+    imageUrlDesktop: "/scan-desktop.png",
+    imageUrlMobile: "/scan-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
     id: "allaheterglenn",
     name: "Allaheterglenn",
     tags: ["Marknadsföring"],
