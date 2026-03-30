@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
  * Captures full-page screenshots at desktop and mobile viewports.
- * Run from app/: npm run screenshot -- <url> <projectId>
+ * Run from app/: npm run screenshot -- <url> <projectId> [postLoadWaitMs]
+ *
+ * Optional 3rd arg: milliseconds to wait after navigation (default 2000).
+ * Heavy WebGL/websocket apps: use a large value (e.g. 25000) and set
+ * SCREENSHOT_WAIT_UNTIL=load because networkidle may never settle.
  *
  * Outputs:
  *   app/public/{projectId}-desktop.png
@@ -14,13 +18,22 @@ import { chromium } from "playwright";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-const [url, projectId] = process.argv.slice(2);
+const [url, projectId, postLoadWaitArg] = process.argv.slice(2);
 
 if (!url || !projectId) {
-  console.error("Usage: npm run screenshot -- <url> <projectId>");
+  console.error("Usage: npm run screenshot -- <url> <projectId> [postLoadWaitMs]");
   console.error("Example: npm run screenshot -- https://example.com myproject");
+  console.error(
+    "Example (slow / websocket app): SCREENSHOT_WAIT_UNTIL=load npm run screenshot -- https://game.example.com mygame 30000",
+  );
   process.exit(1);
 }
+
+const postLoadWaitMs =
+  postLoadWaitArg !== undefined && postLoadWaitArg !== ""
+    ? Number(postLoadWaitArg)
+    : 2000;
+const waitUntil = process.env.SCREENSHOT_WAIT_UNTIL || "networkidle";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, "..", "public");
@@ -42,8 +55,8 @@ async function main() {
   for (const [size, viewport] of Object.entries(VIEWPORTS)) {
     // Set viewport BEFORE navigation so the site renders the correct layout
     await page.setViewportSize(viewport);
-    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(2000);
+    await page.goto(url, { waitUntil, timeout: 120000 });
+    await page.waitForTimeout(postLoadWaitMs);
 
     // Force scroll to top – handle both document and body, and any scroll containers
     await page.evaluate(() => {

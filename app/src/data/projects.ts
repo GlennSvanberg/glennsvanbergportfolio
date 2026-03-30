@@ -229,6 +229,18 @@ export const projects: Array<Project> = [
     rowSpan: 1,
   },
   {
+    id: "findglenn",
+    name: "Hitta Glenn",
+    tags: ["Spel", "Realtid"],
+    description:
+      "Öppen värld i Göteborg med enkel grafik: kör, spring och leta Glenn tillsammans med andra i samma värld. Spelet körs på datorn, mobilen blir ratten när du lutar den.",
+    url: "https://find.glennsvanberg.se",
+    imageUrlDesktop: "/findglenn-desktop.png",
+    imageUrlMobile: "/findglenn-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
     id: "hairstyle",
     name: "StyleMyHair",
     tags: ["AI"],

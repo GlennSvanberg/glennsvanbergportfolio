@@ -12,7 +12,8 @@
     "start": "node .output/server/index.mjs",
     "format": "prettier --write .",
     "lint": "tsc && eslint .  --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "screenshot": "node scripts/screenshot-site.mjs"
+    "screenshot": "node scripts/screenshot-site.mjs",
+    "screenshot:findglenn": "node scripts/screenshot-findglenn.mjs"
   },
   "dependencies": {
     "@convex-dev/react-query": "^0.1.0",
