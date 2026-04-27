@@ -286,18 +286,6 @@ export const projects: Array<Project> = [
     rowSpan: 1,
   },
   {
-    id: "prank",
-    name: "Prank",
-    tags: ["Verktyg"],
-    description:
-      "Ett litet dashboard för att styra en (snäll) prank-klient – välj mål, se status och ladda ner klienten. Lekfullt sidoprojekt.",
-    url: "https://prank.glennsvanberg.se",
-    imageUrlDesktop: "/prank-desktop.png",
-    imageUrlMobile: "/prank-mobile.png",
-    colSpan: 1,
-    rowSpan: 1,
-  },
-  {
     id: "home",
     name: "Family Home",
     tags: ["Personligt"],
