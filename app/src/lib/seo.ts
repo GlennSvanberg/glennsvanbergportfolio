@@ -35,6 +35,18 @@ type PageMetaInput = {
   ogType?: 'website' | 'article'
   imagePath?: string
   imageAlt?: string
+  articlePublishedTime?: string
+  articleModifiedTime?: string
+}
+
+export type BlogPostSeoInput = {
+  slug: string
+  title: string
+  excerpt?: string
+  body: string
+  tags: Array<string>
+  publishedAt: number
+  updatedAt?: number
 }
 
 export function buildPageMeta(input: PageMetaInput) {
@@ -63,9 +75,52 @@ export function buildPageMeta(input: PageMetaInput) {
       { name: 'twitter:description', content: description },
       { name: 'twitter:image', content: imageUrl },
       { name: 'twitter:image:alt', content: imageAlt },
+      ...(input.articlePublishedTime
+        ? [
+            {
+              property: 'article:published_time',
+              content: input.articlePublishedTime,
+            },
+          ]
+        : []),
+      ...(input.articleModifiedTime
+        ? [
+            {
+              property: 'article:modified_time',
+              content: input.articleModifiedTime,
+            },
+          ]
+        : []),
     ],
     links: [{ rel: 'canonical', href: url }],
   }
+}
+
+export function buildBlogPostDescription(
+  post: Pick<BlogPostSeoInput, 'excerpt' | 'body' | 'title'>,
+): string {
+  if (post.excerpt && post.excerpt.trim().length > 0) {
+    return summarizeText(post.excerpt.trim(), 160)
+  }
+  const fromBody = summarizeText(stripMarkdown(post.body), 160)
+  if (fromBody.length > 0) {
+    return fromBody
+  }
+  return `Läs ${post.title} på ${SITE_NAME}s blogg om experiment, AI och produktbygge.`
+}
+
+export function buildBlogPostPageMeta(post: BlogPostSeoInput) {
+  const publishedAtIso = new Date(post.publishedAt).toISOString()
+  const modifiedAtIso = new Date(post.updatedAt ?? post.publishedAt).toISOString()
+
+  return buildPageMeta({
+    title: post.title,
+    description: buildBlogPostDescription(post),
+    path: `/blog/${post.slug}`,
+    ogType: 'article',
+    articlePublishedTime: publishedAtIso,
+    articleModifiedTime: modifiedAtIso,
+  })
 }
 
 export const personJsonLd = {
@@ -115,17 +170,7 @@ function stripMarkdown(markdown: string): string {
     .trim()
 }
 
-type BlogPostingInput = {
-  slug: string
-  title: string
-  excerpt?: string
-  body: string
-  tags: Array<string>
-  publishedAt: number
-  updatedAt?: number
-}
-
-export function buildBlogPostingJsonLd(post: BlogPostingInput) {
+export function buildBlogPostingJsonLd(post: BlogPostSeoInput) {
   const descriptionSource =
     post.excerpt && post.excerpt.trim().length > 0
       ? post.excerpt

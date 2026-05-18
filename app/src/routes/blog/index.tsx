@@ -1,23 +1,30 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useQuery } from "convex/react";
-import { motion } from 'framer-motion';
-import { api } from "../../../convex/_generated/api";
+import { useQuery } from 'convex/react'
+import { motion } from 'framer-motion'
+import { api } from '../../../convex/_generated/api'
 import { PostCard } from '../../components/PostCard'
+import { fetchBlogPosts } from '~/lib/convexServer'
 import { blogJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/blog/')({
+  loader: async () => {
+    const posts = await fetchBlogPosts()
+    return { posts }
+  },
   head: () =>
     buildPageMeta({
       title: 'Blogg',
       description:
-        'Lar dig mer om Glenn Svanbergs experiment, appar och tankar inom utveckling, AI och produktbygge.',
+        'Lär dig mer om Glenn Svanbergs experiment, appar och tankar inom utveckling, AI och produktbygge.',
       path: '/blog',
     }),
   component: BlogIndex,
 })
 
 function BlogIndex() {
-  const posts = useQuery(api.posts.list);
+  const { posts: loaderPosts } = Route.useLoaderData()
+  const livePosts = useQuery(api.posts.list)
+  const posts = livePosts ?? loaderPosts
 
   return (
     <main className="min-h-screen flex flex-col bg-[var(--background)] py-24 md:py-32">
@@ -37,9 +44,9 @@ function BlogIndex() {
               Idéer <span className="text-muted/50">&</span> Tankar
             </h1>
             <motion.div
-              initial={{ width: "0%", left: "50%", x: "-50%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+              initial={{ width: '0%', left: '50%', x: '-50%' }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
               className="absolute -bottom-4 h-1.5 md:h-2 bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)]"
             />
           </motion.div>
@@ -48,9 +55,7 @@ function BlogIndex() {
           </p>
         </header>
 
-        {posts === undefined ? (
-          <div className="text-center text-muted font-mono animate-pulse">Laddar inlägg...</div>
-        ) : posts.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="text-center text-muted font-mono">Inga inlägg hittades.</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
