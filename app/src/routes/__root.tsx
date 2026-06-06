@@ -102,7 +102,7 @@ function RootComponent() {
                   Kontakt
                 </p>
                 <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white">
-                  Let&apos;s build something great
+                  Bygg något coolt
                 </h2>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
