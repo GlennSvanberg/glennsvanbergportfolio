@@ -229,6 +229,17 @@ export const projects: Array<Project> = [
     rowSpan: 1,
   },
   {
+    id: "rock",
+    name: "Rock",
+    tags: ["Spel"],
+    description: "Sten, sax, papper mot datorn – kan du lista ut hur man vinner?",
+    url: "https://rock.glennsvanberg.se",
+    imageUrlDesktop: "/rock-desktop.png",
+    imageUrlMobile: "/rock-mobile.png",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
     id: "findglenn",
     name: "Hitta Glenn",
     tags: ["Spel", "Realtid"],
