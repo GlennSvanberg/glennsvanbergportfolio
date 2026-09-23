@@ -1,27 +1,12 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { cn } from "../lib/utils";
 import { BlogPostSection } from "./BlogPostSection";
-import { ProjectDirectory } from "./ProjectDirectory";
 import { ResponsiveProjectImg, getProjectImageAlt, getProjectImageUrls } from "./projectMedia";
 import type { Project } from "../data/projects";
 import type { Doc } from "../../convex/_generated/dataModel";
-
-function normalizeForSearch(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .replace(/å/g, "a")
-    .replace(/ä/g, "a")
-    .replace(/ö/g, "o");
-}
-
-function projectHaystack(project: Project): string {
-  return `${project.name} ${project.description} ${project.tags.join(" ")}`;
-}
 
 // --------------------------------------------------------
 // ProjectImage Component
@@ -323,12 +308,6 @@ function renderProjectSection(project: Project, layoutIndex: number) {
 
 export type ExploratoryProjectsProps = {
   posts?: Array<Doc<"posts">>;
-  searchQuery: string;
-  activeTag: string | null;
-  onSearchQueryChange: (value: string) => void;
-  onActiveTagChange: (tag: string | null) => void;
-  /** When set (e.g. URL-driven filters), use for a single atomic reset instead of two updates */
-  onClearFilters?: () => void;
 };
 
 // --------------------------------------------------------
@@ -336,45 +315,7 @@ export type ExploratoryProjectsProps = {
 // --------------------------------------------------------
 export const ExploratoryProjects = ({
   posts = [],
-  searchQuery,
-  activeTag,
-  onSearchQueryChange,
-  onActiveTagChange,
-  onClearFilters: onClearFiltersProp,
 }: ExploratoryProjectsProps) => {
-  const uniqueTags = useMemo(() => {
-    const set = new Set<string>();
-    for (const p of projects) {
-      for (const t of p.tags) {
-        set.add(t);
-      }
-    }
-    return [...set].sort((a, b) => a.localeCompare(b, "sv"));
-  }, []);
-
-  const filteredProjects = useMemo(() => {
-    let list = projects;
-    if (activeTag) {
-      list = list.filter((p) => p.tags.includes(activeTag));
-    }
-    const q = searchQuery.trim();
-    if (q) {
-      const nq = normalizeForSearch(q);
-      list = list.filter((p) => normalizeForSearch(projectHaystack(p)).includes(nq));
-    }
-    return list;
-  }, [searchQuery, activeTag]);
-
-  const hasActiveFilter = searchQuery.trim().length > 0 || activeTag !== null;
-
-  const clearFilters = () => {
-    if (onClearFiltersProp) {
-      onClearFiltersProp();
-      return;
-    }
-    onSearchQueryChange("");
-    onActiveTagChange(null);
-  };
 
   // Build combined array (blog interleaved) — only when no filter
   const combinedItems: Array<
@@ -407,27 +348,13 @@ export const ExploratoryProjects = ({
 
   return (
     <div className="flex w-full flex-col">
-      <ProjectDirectory
-        filteredProjects={filteredProjects}
-        totalProjectCount={projects.length}
-        uniqueTags={uniqueTags}
-        searchQuery={searchQuery}
-        onSearchQueryChange={onSearchQueryChange}
-        activeTag={activeTag}
-        onActiveTagChange={onActiveTagChange}
-        onClearFilters={clearFilters}
-        hasActiveFilter={hasActiveFilter}
-      />
-
-      {hasActiveFilter
-        ? filteredProjects.map((p) => renderProjectSection(p, projects.indexOf(p)))
-        : combinedItems.map((item) =>
-            item.type === "post" ? (
-              <BlogPostSection key={item.data._id} post={item.data} />
-            ) : (
-              renderProjectSection(item.data, item.projectIndex)
-            ),
-          )}
+      {combinedItems.map((item) =>
+        item.type === "post" ? (
+          <BlogPostSection key={item.data._id} post={item.data} />
+        ) : (
+          renderProjectSection(item.data, item.projectIndex)
+        ),
+      )}
     </div>
   );
 };
