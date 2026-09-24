@@ -209,7 +209,7 @@ const CenterParallaxSection = ({ project, sectionId }: { project: Project; secti
             trackaton-on-click="primary-cta"
             className="relative overflow-hidden px-10 py-4 border border-primary text-primary font-mono text-sm uppercase tracking-widest group z-10 hover:border-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300"
           >
-            <span className="relative z-10 group-hover:text-black transition-colors duration-300 font-bold">Starta projekt</span>
+            <span className="relative z-10 group-hover:text-black transition-colors duration-300 font-bold">Utforska projekt</span>
             <div className="absolute inset-0 bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
           </a>
         </div>
