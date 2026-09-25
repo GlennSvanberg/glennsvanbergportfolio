@@ -9,16 +9,23 @@ import type { Project } from "../data/projects";
 import type { Doc } from "../../convex/_generated/dataModel";
 
 // --------------------------------------------------------
-// ProjectImage Component
+// ProjectImage Component with inner parallax drift
 // --------------------------------------------------------
 const ProjectImage = ({ project, className }: { project: Project; className?: string }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  // Image drifts slower than its frame — visible through overflow-hidden.
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const urls = getProjectImageUrls(project);
 
   return (
-    <div className={cn("relative group overflow-hidden bg-black/50 rounded-xl shadow-2xl shadow-black/50", className)}>
+    <div ref={ref} className={cn("relative group overflow-hidden bg-black/50 rounded-xl shadow-2xl shadow-black/50", className)}>
       {urls ? (
         <>
-          {/* Base image - clean and professional */}
+          {/* Base image - clean and professional, with parallax drift */}
           <motion.div
             initial={{ filter: "grayscale(100%)" }}
             whileInView={{ filter: "grayscale(0%)" }}
@@ -26,11 +33,13 @@ const ProjectImage = ({ project, className }: { project: Project; className?: st
             viewport={{ once: true, margin: "-10%" }}
             className="absolute inset-0 w-full h-full"
           >
-            <ResponsiveProjectImg
-              project={project}
-              alt={getProjectImageAlt(project)}
-              className="w-full h-full object-contain md:object-cover object-top md:object-center"
-            />
+            <motion.div style={{ y: imgY }} className="absolute -inset-[10%] w-[120%] h-[120%]">
+              <ResponsiveProjectImg
+                project={project}
+                alt={getProjectImageAlt(project)}
+                className="w-full h-full object-contain md:object-cover object-top md:object-center"
+              />
+            </motion.div>
           </motion.div>
           {/* Soft inner glow/border */}
           <div className="absolute inset-0 border border-primary/20 rounded-[inherit] pointer-events-none z-20 group-hover:border-emerald-400/50 transition-colors duration-500" />
@@ -58,9 +67,10 @@ const DiagonalSection = ({ project, sectionId }: { project: Project; sectionId: 
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0, 1, 1, 0.35]);
 
   return (
     <section
@@ -97,7 +107,7 @@ const DiagonalSection = ({ project, sectionId }: { project: Project; sectionId: 
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start">
           {/* Content */}
-          <motion.div style={{ scale }} className="flex flex-col gap-8 relative z-20 order-2 md:order-1 pt-4">
+          <motion.div style={{ scale, opacity: contentOpacity }} className="flex flex-col gap-8 relative z-20 order-2 md:order-1 pt-4">
             <div className="flex flex-wrap gap-3">
               {project.tags.map((tag) => (
                 <span key={tag} className="text-primary bg-primary/5 font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full border border-primary/20 hover:text-emerald-400 hover:border-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] transition-all duration-300 cursor-default">
@@ -153,8 +163,9 @@ const CenterParallaxSection = ({ project, sectionId }: { project: Project; secti
     offset: ["start end", "end start"],
   });
 
-  const textX = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
-  const y = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+  const textX = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.25, 0.45, 0.25]);
   
   return (
     <section
@@ -165,8 +176,8 @@ const CenterParallaxSection = ({ project, sectionId }: { project: Project; secti
       
       {/* Massive Background Text */}
       <motion.div 
-        style={{ x: textX }}
-        className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[12vw] font-black text-primary/5 uppercase pointer-events-none z-0 opacity-40 mix-blend-screen"
+        style={{ x: textX, opacity: bgOpacity }}
+        className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[12vw] font-black text-primary/5 uppercase pointer-events-none z-0 mix-blend-screen"
       >
         {project.name} • {project.name} • 
       </motion.div>

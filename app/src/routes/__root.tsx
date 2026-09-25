@@ -6,6 +6,7 @@ import {
   createRootRouteWithContext,
 } from '@tanstack/react-router'
 import * as React from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import { AtSign, Linkedin, Phone, Twitter } from 'lucide-react'
 import type { QueryClient } from '@tanstack/react-query'
 import appCss from '~/styles/app.css?url'
@@ -67,9 +68,21 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
 })
 
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.4 });
+  return (
+    <motion.div
+      style={{ scaleX }}
+      className="fixed top-0 left-0 right-0 h-[3px] bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)] origin-left z-[60]"
+    />
+  );
+}
+
 function RootComponent() {
   return (
     <RootDocument>
+      <ScrollProgressBar />
       <div className="flex flex-col min-h-screen">
         <header className="border-b border-primary/10 bg-[var(--background)] text-[var(--foreground)] px-4 py-3 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
