@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import { motion } from 'framer-motion'
 import { api } from '../../../convex/_generated/api'
+import type { Doc } from '../../../convex/_generated/dataModel'
 import { PostCard } from '../../components/PostCard'
 import { fetchBlogPosts } from '~/lib/convexServer'
 import { blogJsonLd, buildPageMeta } from '~/lib/seo'
@@ -24,7 +25,7 @@ export const Route = createFileRoute('/blog/')({
 function BlogIndex() {
   const { posts: loaderPosts } = Route.useLoaderData()
   const livePosts = useQuery(api.posts.list)
-  const posts = livePosts ?? loaderPosts
+  const posts: Array<Doc<'posts'>> = livePosts ?? loaderPosts
 
   return (
     <main className="min-h-screen flex flex-col bg-[var(--background)] py-24 md:py-32">

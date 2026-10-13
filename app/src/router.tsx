@@ -5,11 +5,16 @@ import { ConvexQueryClient } from '@convex-dev/react-query'
 import { ConvexProvider } from 'convex/react'
 import { routeTree } from './routeTree.gen'
 
-export function getRouter() {
-  const CONVEX_URL = (import.meta as any).env.VITE_CONVEX_URL!
-  if (!CONVEX_URL) {
-    console.error('missing envar CONVEX_URL')
+function getConvexUrl(): string {
+  const url = import.meta.env.VITE_CONVEX_URL || process.env.VITE_CONVEX_URL
+  if (!url) {
+    throw new Error('VITE_CONVEX_URL is required')
   }
+  return url
+}
+
+export function getRouter() {
+  const CONVEX_URL = getConvexUrl()
   const convexQueryClient = new ConvexQueryClient(CONVEX_URL)
 
   const queryClient: QueryClient = new QueryClient({
@@ -30,7 +35,9 @@ export function getRouter() {
       context: { queryClient },
       scrollRestoration: true,
       defaultPreloadStaleTime: 0, // Let React Query handle all caching
-      defaultErrorComponent: (err) => <p>{err.error.stack}</p>,
+      defaultErrorComponent: ({ error }) => (
+        <p>{error instanceof Error ? error.stack : String(error)}</p>
+      ),
       defaultNotFoundComponent: () => <p>Sidan hittades inte</p>,
       Wrap: ({ children }) => (
         <ConvexProvider client={convexQueryClient.convexClient}>
