@@ -11,7 +11,7 @@ export const Route = createFileRoute('/')({
     buildPageMeta({
       title: 'Portfolio och experiment',
       description:
-        'Produktbyggare som tar idéer från noll till betalande kunder, med AI. Appar, experiment och blogg av Glenn Svanberg.',
+        'Glenn Svanberg älskar att testa ny teknik och nya sätt att göra saker. Appar, experiment och blogg.',
       path: '/',
     }),
   component: Home,
@@ -71,10 +71,11 @@ function Home() {
             Glenn <span className="block md:inline">Svanberg</span>
           </motion.h1>
           <p className="max-w-3xl text-lg md:text-2xl text-foreground/90 font-medium leading-snug border-b border-primary/30 pb-5">
-            Produktbyggare som tar idéer från noll till betalande kunder, med AI.
+            Jag älskar att testa saker.
           </p>
           <p className="mt-5 max-w-xl text-sm md:text-base text-muted/80 font-light leading-relaxed">
-            Indie hacker under Inventing. På dagarna tar jag AI- och dataprodukter från problem till MVP till marknad. Här under finns experimenten.
+            Ny teknik, nya sätt att göra saker på och att förstå hur det kan göras
+            smartare. Här under finns experimenten.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link

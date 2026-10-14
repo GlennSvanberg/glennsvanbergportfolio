@@ -6,10 +6,10 @@ export const DEFAULT_OG_IMAGE_PATH = '/glennsvanberg-desktop.png'
 export const DEFAULT_OG_IMAGE_ALT = 'Glenn Svanbergs portfolio med appar och experiment'
 
 export const DEFAULT_DESCRIPTION =
-  'Personlig portfolio av Glenn Svanberg med experiment, appar, ideer och blogginlagg.'
+  'Glenn Svanberg testar ny teknik och nya sätt att göra saker — experiment, appar och blogg.'
 
 export const ABOUT_DESCRIPTION =
-  'Glenn Svanberg i Göteborg. Produktbyggare som tar idéer från noll till betalande kunder, med AI. Uppvuxen i Fjällbacka.'
+  'Glenn Svanberg i Göteborg. Älskar att testa ny teknik och nya sätt att göra saker på — experiment under Inventing.'
 
 export const SOCIAL_PROFILES = [
   'https://x.com/GlennSvanberg',
