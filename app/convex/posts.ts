@@ -1,7 +1,7 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
-import type { MutationCtx } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { validateToken } from "./adminAuth";
+import type { MutationCtx } from "./_generated/server";
 
 async function clearFeaturedSlot(ctx: MutationCtx, order: number) {
   const existing = await ctx.db
@@ -9,7 +9,7 @@ async function clearFeaturedSlot(ctx: MutationCtx, order: number) {
     .filter((q) => q.eq(q.field("featuredOrder"), order))
     .first();
   if (existing) {
-    await ctx.db.patch(existing._id, {
+    await ctx.db.patch("posts", existing._id, {
       featuredOrder: undefined,
       updatedAt: Date.now(),
     });
@@ -105,7 +105,7 @@ export const getForAdmin = query({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    return await ctx.db.get(args.id);
+    return await ctx.db.get("posts", args.id);
   },
 });
 
@@ -161,7 +161,7 @@ export const update = mutation({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    const post = await ctx.db.get(args.id);
+    const post = await ctx.db.get("posts", args.id);
     if (!post) {
       throw new Error("Post not found");
     }
@@ -182,7 +182,7 @@ export const update = mutation({
       }
       patch.featuredOrder = order;
     }
-    await ctx.db.patch(args.id, patch);
+    await ctx.db.patch("posts", args.id, patch);
     return args.id;
   },
 });
@@ -195,7 +195,7 @@ export const setFeaturedOrder = mutation({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    const post = await ctx.db.get(args.postId);
+    const post = await ctx.db.get("posts", args.postId);
     if (!post) {
       throw new Error("Post not found");
     }
@@ -203,11 +203,98 @@ export const setFeaturedOrder = mutation({
     if (order != null) {
       await clearFeaturedSlot(ctx, order);
     }
-    await ctx.db.patch(args.postId, {
+    await ctx.db.patch("posts", args.postId, {
       featuredOrder: order,
       updatedAt: Date.now(),
     });
     return args.postId;
+  },
+});
+
+const importResultValidator = v.object({
+  id: v.id("posts"),
+  slug: v.string(),
+  status: v.union(v.literal("created"), v.literal("updated")),
+});
+
+/**
+ * Create or update a post by slug. Internal only: callable from
+ * `npx convex run` and the Convex dashboard/MCP, not from the public client.
+ * Does not require the admin session token. Leaves featuredOrder and
+ * relatedProjectId untouched.
+ */
+export const upsertFromImport = internalMutation({
+  args: {
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.optional(v.string()),
+    body: v.string(),
+    tags: v.array(v.string()),
+    publishedAt: v.optional(v.number()),
+  },
+  returns: importResultValidator,
+  handler: async (ctx, args) => {
+    const title = args.title.trim();
+    const slug = args.slug.trim();
+    const body = args.body.trim();
+    if (title.length === 0) {
+      throw new Error("Title is required");
+    }
+    if (body.length === 0) {
+      throw new Error("Body is required");
+    }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      throw new Error(
+        "Slug must be lowercase letters, numbers, and single hyphens",
+      );
+    }
+    const tags = args.tags
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 0);
+    const excerpt = args.excerpt?.trim();
+    const now = Date.now();
+
+    const existing = await ctx.db
+      .query("posts")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .unique();
+
+    if (existing) {
+      const patch: {
+        title: string;
+        slug: string;
+        body: string;
+        tags: Array<string>;
+        updatedAt: number;
+        excerpt?: string;
+        publishedAt?: number;
+      } = {
+        title,
+        slug,
+        body,
+        tags,
+        updatedAt: now,
+      };
+      if (excerpt !== undefined) {
+        patch.excerpt = excerpt;
+      }
+      if (args.publishedAt !== undefined) {
+        patch.publishedAt = args.publishedAt;
+      }
+      await ctx.db.patch("posts", existing._id, patch);
+      return { id: existing._id, slug, status: "updated" as const };
+    }
+
+    const id = await ctx.db.insert("posts", {
+      title,
+      slug,
+      body,
+      tags,
+      excerpt: excerpt && excerpt.length > 0 ? excerpt : undefined,
+      publishedAt: args.publishedAt ?? now,
+      updatedAt: now,
+    });
+    return { id, slug, status: "created" as const };
   },
 });
 
@@ -218,6 +305,6 @@ export const remove = mutation({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    return await ctx.db.delete(args.id);
+    return await ctx.db.delete("posts", args.id);
   },
 });

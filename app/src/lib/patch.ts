@@ -17,15 +17,15 @@ export interface Hunk {
   oldCount: number;
   newStart: number;
   newCount: number;
-  lines: HunkLine[];
+  lines: Array<HunkLine>;
 }
 
 /**
  * Parse a unified diff patch into hunks.
  * Supports the format: @@ -oldStart,oldCount +newStart,newCount @@
  */
-export function parsePatch(patch: string): Hunk[] {
-  const hunks: Hunk[] = [];
+export function parsePatch(patch: string): Array<Hunk> {
+  const hunks: Array<Hunk> = [];
   const lines = patch.split("\n");
   let i = 0;
 
@@ -34,11 +34,11 @@ export function parsePatch(patch: string): Hunk[] {
     const headerMatch = line.match(/^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
     if (headerMatch) {
       const oldStart = parseInt(headerMatch[1], 10);
-      const oldCount = parseInt(headerMatch[2] ?? "1", 10);
+      const oldCount = parseInt(headerMatch[2] || "1", 10);
       const newStart = parseInt(headerMatch[3], 10);
-      const newCount = parseInt(headerMatch[4] ?? "1", 10);
+      const newCount = parseInt(headerMatch[4] || "1", 10);
 
-      const hunkLines: HunkLine[] = [];
+      const hunkLines: Array<HunkLine> = [];
       i++;
       while (i < lines.length && !lines[i].startsWith("@@")) {
         const l = lines[i];
@@ -64,7 +64,7 @@ export function parsePatch(patch: string): Hunk[] {
  * Find the best position to apply a hunk using context-based matching.
  * Searches around the expected position (adjusted for previous hunks).
  */
-function findHunkPosition(docLines: string[], hunk: Hunk, lineOffset: number): number | null {
+function findHunkPosition(docLines: Array<string>, hunk: Hunk, lineOffset: number): number | null {
   const { lines: hunkLines } = hunk;
   const expectedPos = hunk.oldStart - 1 + lineOffset;
   const firstContext = hunkLines.find((l) => l.type === "context");
@@ -81,7 +81,7 @@ function findHunkPosition(docLines: string[], hunk: Hunk, lineOffset: number): n
   return null;
 }
 
-function verifyHunkAt(docLines: string[], hunk: Hunk, startPos: number): boolean {
+function verifyHunkAt(docLines: Array<string>, hunk: Hunk, startPos: number): boolean {
   let docPos = startPos;
   for (const hunkLine of hunk.lines) {
     if (hunkLine.type === "context" || hunkLine.type === "remove") {
@@ -99,16 +99,16 @@ function verifyHunkAt(docLines: string[], hunk: Hunk, startPos: number): boolean
  * Returns the new lines array and the shift (lines added - lines removed) for offset tracking.
  */
 function applyHunk(
-  docLines: string[],
+  docLines: Array<string>,
   hunk: Hunk,
   lineOffset: number
-): { lines: string[]; shift: number } | null {
+): { lines: Array<string>; shift: number } | null {
   const targetPos = Math.max(0, (hunk.oldStart - 1) + lineOffset);
   const pos = findHunkPosition(docLines, hunk, lineOffset)
     ?? (targetPos <= docLines.length ? targetPos : null);
   if (pos === null || pos < 0) return null;
 
-  const result: string[] = [];
+  const result: Array<string> = [];
   let docPos = pos;
   let addCount = 0;
   let removeCount = 0;
@@ -126,7 +126,7 @@ function applyHunk(
       }
       removeCount++;
       docPos++;
-    } else if (hunkLine.type === "add") {
+    } else {
       result.push(hunkLine.content);
       addCount++;
     }

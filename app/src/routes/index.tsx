@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -11,25 +11,16 @@ export const Route = createFileRoute('/')({
     buildPageMeta({
       title: 'Portfolio och experiment',
       description:
-        'Glenn Svanbergs portfolio med appar, experiment och blogginlagg om byggande, larande och ideer.',
+        'Produktbyggare som tar idéer från noll till betalande kunder, med AI. Appar, experiment och blogg av Glenn Svanberg.',
       path: '/',
     }),
   component: Home,
 })
 
 function Home() {
-  const [activeWordIndex, setActiveWordIndex] = useState(2);
-  const words = ["Experiment", "Appar", "Idéer"];
   const heroRef = useRef<HTMLElement>(null);
 
   const featuredPosts = useQuery(api.posts.listFeatured) ?? [];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveWordIndex((prev) => (prev + 1) % words.length);
-    }, 2000); // Change every 2 seconds
-    return () => clearInterval(interval);
-  }, [words.length]);
 
   // Hero parallax: hero content fades/lifts faster than scroll,
   // background layers drift slower — creates depth.
@@ -79,25 +70,28 @@ function Home() {
           <motion.h1 style={{ y: heroTitleY }} className="text-7xl md:text-[9rem] font-black tracking-tighter uppercase text-white mb-6">
             Glenn <span className="block md:inline">Svanberg</span>
           </motion.h1>
-          <p className="text-xl md:text-3xl text-muted font-mono max-w-3xl lowercase tracking-widest border-b border-primary/30 pb-4 flex items-center justify-center gap-2 md:gap-4 flex-wrap">
-            {words.map((word, index) => (
-              <span key={word} className="flex items-center gap-2 md:gap-4">
-                <span
-                  className={`transition-all duration-500 ${
-                    index === activeWordIndex
-                      ? "text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] font-bold scale-110"
-                      : "text-muted font-normal scale-100"
-                  }`}
-                >
-                  {word}
-                </span>
-                {index < words.length - 1 && <span className="text-muted/50">/</span>}
-              </span>
-            ))}
+          <p className="max-w-3xl text-lg md:text-2xl text-foreground/90 font-medium leading-snug border-b border-primary/30 pb-5">
+            Produktbyggare som tar idéer från noll till betalande kunder, med AI.
           </p>
-          <p className="mt-6 max-w-xl text-sm md:text-base text-muted/70 font-light leading-relaxed">
-            Jag bygger appar, verktyg och lekfulla experiment — scrolla ner och kika runt.
+          <p className="mt-5 max-w-xl text-sm md:text-base text-muted/80 font-light leading-relaxed">
+            Indie hacker under Inventing. På dagarna tar jag AI- och dataprodukter från problem till MVP till marknad. Här under finns experimenten.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/about"
+              trackaton-on-click="hero-about"
+              className="inline-flex items-center rounded-md bg-emerald-400 px-4 py-2 font-mono text-xs uppercase tracking-widest text-black hover:bg-emerald-300 transition-colors"
+            >
+              Om mig
+            </Link>
+            <Link
+              to="/blog"
+              trackaton-on-click="hero-blog"
+              className="inline-flex items-center rounded-md border border-primary/30 px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
+            >
+              Blogg
+            </Link>
+          </div>
         </motion.div>
 
         {/* Scroll cue that fades out immediately on scroll */}

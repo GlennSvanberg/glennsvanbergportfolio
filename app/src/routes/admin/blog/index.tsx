@@ -1,10 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery } from "convex/react";
+import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { api } from "../../../../convex/_generated/api";
 import type { Id } from "../../../../convex/_generated/dataModel";
-import { useAdminToken, clearAdminToken } from "~/lib/useAdminToken";
-import { useState, useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
+import { clearAdminToken, useAdminToken } from "~/lib/useAdminToken";
 import { BlogWriteChat } from "~/components/BlogWriteChat";
 import { applyPatch } from "~/lib/patch";
 
@@ -65,7 +65,7 @@ function BlogStudio() {
 
   function startEdit(
     id: Id<"posts">,
-    post: { title: string; slug: string; excerpt?: string; body: string; tags: string[] }
+    post: { title: string; slug: string; excerpt?: string; body: string; tags: Array<string> }
   ) {
     setEditingId(id);
     setTitle(post.title);

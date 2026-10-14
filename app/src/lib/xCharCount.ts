@@ -14,7 +14,7 @@ export function getEffectiveLength(text: string): number {
   const textWithoutUrls = text.replace(urlRegex, 'x'.repeat(T_CO_LENGTH));
   
   // Count emojis as 2 chars. We can use Intl.Segmenter to count graphemes properly.
-  if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+  if (typeof Intl.Segmenter === "function") {
     const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
     const segments = Array.from(segmenter.segment(textWithoutUrls));
     

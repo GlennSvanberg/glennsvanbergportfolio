@@ -1,4 +1,4 @@
-import { getEffectiveLength, X_CHAR_LIMIT } from "~/lib/xCharCount";
+import { X_CHAR_LIMIT, getEffectiveLength } from "~/lib/xCharCount";
 
 export function XPostPreview({ text }: { text: string }) {
   const charCount = getEffectiveLength(text);

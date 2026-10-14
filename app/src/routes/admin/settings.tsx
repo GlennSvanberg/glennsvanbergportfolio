@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery } from "convex/react";
+import { useEffect, useState } from "react";
 import { api } from "../../../convex/_generated/api";
 import { useAdminToken } from "~/lib/useAdminToken";
-import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/admin/settings")({
   component: AISettingsPage,

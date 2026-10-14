@@ -26,7 +26,7 @@ export const get = query({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    return await ctx.db.get(args.id);
+    return await ctx.db.get("blogChats", args.id);
   },
 });
 
@@ -56,7 +56,7 @@ export const update = mutation({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    const chat = await ctx.db.get(args.id);
+    const chat = await ctx.db.get("blogChats", args.id);
     if (!chat) {
       throw new Error("Chat not found");
     }
@@ -65,7 +65,7 @@ export const update = mutation({
     };
     if (args.title !== undefined) patch.title = args.title;
     if (args.messages !== undefined) patch.messages = args.messages;
-    await ctx.db.patch(args.id, patch);
+    await ctx.db.patch("blogChats", args.id, patch);
     return args.id;
   },
 });
@@ -77,7 +77,7 @@ export const remove = mutation({
   },
   handler: async (ctx, args) => {
     await validateToken(ctx, args.token);
-    await ctx.db.delete(args.id);
+    await ctx.db.delete("blogChats", args.id);
     return args.id;
   },
 });

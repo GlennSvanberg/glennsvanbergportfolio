@@ -93,7 +93,14 @@ function RootComponent() {
             >
               Glenn Svanberg
             </Link>
-            <nav>
+            <nav className="flex items-center gap-6">
+              <Link
+                to="/about"
+                trackaton-on-click="nav-about"
+                className="font-mono uppercase tracking-widest text-sm text-muted hover:text-emerald-400 transition-colors"
+              >
+                Om
+              </Link>
               <Link
                 to="/blog"
                 trackaton-on-click="nav-blog"
@@ -117,6 +124,22 @@ function RootComponent() {
                 <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white">
                   Bygg något coolt
                 </h2>
+                <nav className="flex items-center gap-5 pt-2">
+                  <Link
+                    to="/about"
+                    trackaton-on-click="footer-about"
+                    className="font-mono uppercase tracking-widest text-xs text-muted hover:text-emerald-400 transition-colors"
+                  >
+                    Om
+                  </Link>
+                  <Link
+                    to="/blog"
+                    trackaton-on-click="footer-blog"
+                    className="font-mono uppercase tracking-widest text-xs text-muted hover:text-emerald-400 transition-colors"
+                  >
+                    Blogg
+                  </Link>
+                </nav>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <a

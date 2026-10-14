@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
@@ -28,7 +28,7 @@ export function TweetWriteChat({
   const chatAction = useAction(api.tweetWrite.chat);
 
   const [currentChatId, setCurrentChatId] = useState<Id<"tweetChats"> | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<Array<ChatMessage>>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +73,7 @@ export function TweetWriteChat({
     setShowChatList(false);
   }
 
-  async function handleSelectChat(id: Id<"tweetChats">) {
+  function handleSelectChat(id: Id<"tweetChats">) {
     setCurrentChatId(id);
     setShowChatList(false);
   }
@@ -95,7 +95,7 @@ export function TweetWriteChat({
     setInput("");
     setError(null);
     const userMessage: ChatMessage = { role: "user", content: text };
-    const newMessages: ChatMessage[] = [...messages, userMessage];
+    const newMessages: Array<ChatMessage> = [...messages, userMessage];
     setMessages(newMessages);
     setLoading(true);
     queueMicrotask(() => textareaRef.current?.focus());
