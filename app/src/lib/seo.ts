@@ -136,7 +136,7 @@ export const personJsonLd = {
   '@type': 'Person',
   name: SITE_NAME,
   url: absoluteUrl('/'),
-  email: 'mailto:signeratsvanberg@gmail.com',
+  email: 'mailto:glenn@inventing.se',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Göteborg',

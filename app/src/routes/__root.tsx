@@ -143,11 +143,11 @@ function RootComponent() {
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <a
-                  href="mailto:signeratsvanberg@gmail.com"
+                  href="mailto:glenn@inventing.se"
                   className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
                 >
                   <AtSign className="h-4 w-4" />
-                  signeratsvanberg@gmail.com
+                  glenn@inventing.se
                 </a>
                 <a
                   href="tel:+46735029113"
