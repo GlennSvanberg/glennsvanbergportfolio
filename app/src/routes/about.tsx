@@ -34,34 +34,24 @@ function AboutPage() {
             Om Glenn
           </h1>
           <p className="mt-8 text-xl md:text-2xl text-muted/90 font-light leading-relaxed border-l-2 border-emerald-400 pl-6">
-            Produktbyggare som tar idéer från noll till betalande kunder, med AI.
+            Jag älskar att testa ny teknik och nya sätt att göra saker på.
           </p>
         </header>
 
         <div className="space-y-6 text-lg text-foreground/80 font-light leading-relaxed">
+          <p>Jag heter Glenn Svanberg och bor i Göteborg.</p>
           <p>
-            Jag heter Glenn Svanberg. Jag bor i Göteborg och växte upp i
-            Fjällbacka.
+            Det som driver mig är att förstå hur saker kan göras smartare med ny
+            teknik. Jag bygger hellre något och testar än läser om det.
           </p>
           <p>
-            Det jag gillar mest är att gå från noll till ett tillsammans med
-            riktiga kunder. Hitta ett problem som faktiskt finns, bygga en MVP
-            och ta den till marknaden.
+            Jag experimenterar under varumärket Inventing: appar, verktyg,
+            AI-agenter och lekfulla idéer. Vissa blir något, de flesta blir
+            lärdomar.
           </p>
           <p>
-            På dagarna är jag utvecklare och konsult, och förespråkar
-            innovation, på ett konsultbolag inom produktinformation. Där har
-            jag tagit flera AI- och dataprodukter hela vägen från idé till
-            betalande kunder.
-          </p>
-          <p>
-            Vid sidan av är jag indie hacker under varumärket Inventing. Där
-            bygger jag SaaS och lekfulla experiment. Samma rörelse, bara mer
-            fritt: testa, lära, se vad som bär.
-          </p>
-          <p>
-            Den här sidan är min egen plats för det. Appar, experiment och
-            tankar. Inte en konsultbroschyr.
+            Den här sidan är min plats för experimenten och tankarna. Inte en
+            konsultbroschyr.
           </p>
         </div>
 

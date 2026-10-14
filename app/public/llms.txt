@@ -1,6 +1,6 @@
 # Glenn Svanberg
 
-> Personal portfolio and blog for Glenn Svanberg.
+> Personal portfolio and blog for Glenn Svanberg — testing new technology and smarter ways to build things. Experiments under Inventing; based in Göteborg.
 
 ## Canonical site
 - https://glennsvanberg.se/
