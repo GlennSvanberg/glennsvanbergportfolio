@@ -7,6 +7,7 @@ import { TweetWriteChat } from "~/components/TweetWriteChat";
 import { XPostPreview } from "~/components/XPostPreview";
 import { projects } from "~/data/projects";
 import { X_CHAR_LIMIT, getEffectiveLength } from "~/lib/xCharCount";
+import { SITE_URL } from "~/lib/seo";
 
 export const Route = createFileRoute("/admin/tweets/")({
   component: TweetStudio,
@@ -86,7 +87,7 @@ function TweetStudio() {
   if (linkedPostSlug && recentPosts) {
     const post = recentPosts.find(p => p.slug === linkedPostSlug);
     if (post) {
-      extraContext += `Blog Post Context:\nTitle: \${post.title}\nExcerpt: \${post.excerpt ?? 'N/A'}\nURL: https://glennsvanberg.se/blog/\${post.slug}\n\n`;
+      extraContext += `Blog Post Context:\nTitle: \${post.title}\nExcerpt: \${post.excerpt ?? 'N/A'}\nURL: ${SITE_URL}/blog/\${post.slug}\n\n`;
     }
   }
 

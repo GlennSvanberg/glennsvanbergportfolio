@@ -4,5 +4,5 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /anotherPage
 
-Sitemap: https://glennsvanberg.se/sitemap.xml
-Host: glennsvanberg.se
+Sitemap: https://www.glennsvanberg.se/sitemap.xml
+Host: www.glennsvanberg.se
