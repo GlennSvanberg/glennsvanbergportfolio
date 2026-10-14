@@ -1,5 +1,5 @@
 export const SITE_NAME = 'Glenn Svanberg'
-export const SITE_URL = 'https://glennsvanberg.se'
+export const SITE_URL = 'https://www.glennsvanberg.se'
 export const SITE_LANGUAGE = 'sv-SE'
 export const SITE_LOCALE = 'sv_SE'
 export const DEFAULT_OG_IMAGE_PATH = '/glennsvanberg-desktop.png'

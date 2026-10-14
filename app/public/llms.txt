@@ -3,12 +3,12 @@
 > Personal portfolio and blog for Glenn Svanberg — testing new technology and smarter ways to build things. Apps, tools, and playful experiments; based in Göteborg.
 
 ## Canonical site
-- https://glennsvanberg.se/
+- https://www.glennsvanberg.se/
 
 ## Main sections
-- https://glennsvanberg.se/
-- https://glennsvanberg.se/about
-- https://glennsvanberg.se/blog
+- https://www.glennsvanberg.se/
+- https://www.glennsvanberg.se/about
+- https://www.glennsvanberg.se/blog
 
 ## Contact
 - glenn@inventing.se
@@ -18,7 +18,7 @@
 - Do not crawl: /admin, /admin/*, /anotherPage
 
 ## Sitemap
-- https://glennsvanberg.se/sitemap.xml
+- https://www.glennsvanberg.se/sitemap.xml
 
 ## Language
 - Primary language: Swedish (sv-SE)
