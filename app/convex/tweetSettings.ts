@@ -65,7 +65,7 @@ export const update = mutation({
     };
 
     if (existing) {
-      await ctx.db.patch(existing._id, doc);
+      await ctx.db.patch("tweetSettings", existing._id, doc);
     } else {
       await ctx.db.insert("tweetSettings", doc);
     }

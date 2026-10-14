@@ -1,9 +1,9 @@
 "use node";
 
 import { v } from "convex/values";
+import OpenAI from "openai";
 import { action } from "./_generated/server";
 import { api, internal } from "./_generated/api";
-import OpenAI from "openai";
 import { DEFAULT_INSTRUCTIONS } from "./blogSettings";
 
 export const chat = action({
@@ -34,8 +34,9 @@ export const chat = action({
 
     const settings = await ctx.runQuery(api.blogSettings.get);
     const instructions = settings?.instructions ?? DEFAULT_INSTRUCTIONS;
-    const contextSection = settings?.context?.trim()
-      ? `\n\n--- CONTEXT ---\n${settings.context.trim()}`
+    const contextText = settings ? settings.context.trim() : "";
+    const contextSection = contextText
+      ? `\n\n--- CONTEXT ---\n${contextText}`
       : "";
     let systemContent = instructions + contextSection;
     if (args.currentDraft) {
@@ -45,7 +46,7 @@ export const chat = action({
     const input: Array<{ role: "developer" | "user" | "assistant"; content: string }> = [
       { role: "developer", content: systemContent },
       ...args.messages.map((m) => ({
-        role: m.role as "user" | "assistant",
+        role: m.role,
         content: m.content,
       })),
     ];
@@ -56,7 +57,7 @@ export const chat = action({
       stream: false,
     });
 
-    const text = response.output_text ?? "";
+    const text = response.output_text;
     return { text };
   },
 });

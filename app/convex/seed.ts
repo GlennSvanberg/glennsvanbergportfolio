@@ -90,12 +90,12 @@ export const seedFeatured = internalMutation({
           .filter((q) => q.eq(q.field("featuredOrder"), order))
           .first();
         if (existing && existing._id !== post._id) {
-          await ctx.db.patch(existing._id, {
+          await ctx.db.patch("posts", existing._id, {
             featuredOrder: undefined,
             updatedAt: Date.now(),
           });
         }
-        await ctx.db.patch(post._id, {
+        await ctx.db.patch("posts", post._id, {
           featuredOrder: order,
           updatedAt: Date.now(),
         });

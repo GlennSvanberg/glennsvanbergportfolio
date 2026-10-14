@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
+import ReactMarkdown from "react-markdown";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import ReactMarkdown from "react-markdown";
 import { parsePatch } from "~/lib/patch";
 
 export type ChatMessage = {
@@ -112,7 +112,7 @@ export function BlogWriteChat({
   const chatAction = useAction(api.blogWrite.chat);
 
   const [currentChatId, setCurrentChatId] = useState<Id<"blogChats"> | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<Array<ChatMessage>>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -160,7 +160,7 @@ export function BlogWriteChat({
     setShowChatList(false);
   }
 
-  async function handleSelectChat(id: Id<"blogChats">) {
+  function handleSelectChat(id: Id<"blogChats">) {
     setCurrentChatId(id);
     setShowChatList(false);
   }
@@ -183,7 +183,7 @@ export function BlogWriteChat({
     setError(null);
     setApplyError(null);
     const userMessage: ChatMessage = { role: "user", content: text };
-    const newMessages: ChatMessage[] = [...messages, userMessage];
+    const newMessages: Array<ChatMessage> = [...messages, userMessage];
     setMessages(newMessages);
     setLoading(true);
     queueMicrotask(() => textareaRef.current?.focus());

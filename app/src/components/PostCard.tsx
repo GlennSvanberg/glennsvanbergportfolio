@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Share2, Check } from "lucide-react";
+import { ArrowUpRight, Check, Share2 } from "lucide-react";
 import { useState } from "react";
 import type { Doc } from "../../convex/_generated/dataModel";
 

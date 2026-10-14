@@ -13,7 +13,7 @@ export function MarkdownRenderer({ children }: { children: string }) {
         ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-6 space-y-2 marker:text-emerald-400" {...props} />,
         li: ({node, ...props}) => <li className="pl-2" {...props} />,
         blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-emerald-400/50 pl-6 italic my-8 text-muted" {...props} />,
-        code: ({node, inline, className, children, ...props}: any) => {
+        code: ({node, inline, className, children: codeChildren, ...props}: any) => {
           const match = /language-(\w+)/.exec(className || '')
           return !inline ? (
             <div className="rounded-xl overflow-hidden my-8 border border-primary/20 bg-black">
@@ -22,13 +22,13 @@ export function MarkdownRenderer({ children }: { children: string }) {
               </div>
               <pre className="p-4 overflow-x-auto text-sm text-emerald-300/90 font-mono">
                 <code className={className} {...props}>
-                  {children}
+                  {codeChildren}
                 </code>
               </pre>
             </div>
           ) : (
             <code className="font-mono text-sm bg-primary/10 text-emerald-400 px-1.5 py-0.5 rounded" {...props}>
-              {children}
+              {codeChildren}
             </code>
           )
         }

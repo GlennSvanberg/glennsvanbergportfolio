@@ -7,7 +7,11 @@
 
 ## Main sections
 - https://glennsvanberg.se/
+- https://glennsvanberg.se/about
 - https://glennsvanberg.se/blog
+
+## Contact
+- glenn@inventing.se
 
 ## Crawl policy
 - Allowed: /, /blog, /blog/*

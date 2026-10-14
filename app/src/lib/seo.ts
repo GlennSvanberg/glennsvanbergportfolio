@@ -7,6 +7,14 @@ export const DEFAULT_OG_IMAGE_ALT = 'Glenn Svanbergs portfolio med appar och exp
 
 export const DEFAULT_DESCRIPTION =
   'Personlig portfolio av Glenn Svanberg med experiment, appar, ideer och blogginlagg.'
+
+export const ABOUT_DESCRIPTION =
+  'Glenn Svanberg i Göteborg. Produktbyggare som tar idéer från noll till betalande kunder, med AI. Uppvuxen i Fjällbacka.'
+
+export const SOCIAL_PROFILES = [
+  'https://x.com/GlennSvanberg',
+  'https://www.linkedin.com/in/glenn-svanberg',
+] as const
 export const DEFAULT_ROBOTS =
   'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
 export const NOINDEX_ROBOTS =
@@ -128,6 +136,23 @@ export const personJsonLd = {
   '@type': 'Person',
   name: SITE_NAME,
   url: absoluteUrl('/'),
+  email: 'mailto:glenn@inventing.se',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Göteborg',
+    addressCountry: 'SE',
+  },
+  sameAs: [...SOCIAL_PROFILES],
+}
+
+export const aboutPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: absoluteUrl('/about'),
+  inLanguage: SITE_LANGUAGE,
+  name: buildPageTitle('Om'),
+  description: ABOUT_DESCRIPTION,
+  mainEntity: personJsonLd,
 }
 
 export const webSiteJsonLd = {

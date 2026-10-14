@@ -14,7 +14,7 @@ export const Route = createFileRoute('/sitemap.xml')({
         const client = new ConvexHttpClient(convexUrl)
         const posts = await client.query(api.posts.listForSitemap)
 
-        const postUrls = (posts ?? []).map(
+        const postUrls = posts.map(
           (post) => `
   <url>
     <loc>${absoluteUrl(`/blog/${post.slug}`)}</loc>
@@ -30,6 +30,11 @@ export const Route = createFileRoute('/sitemap.xml')({
     <loc>${absoluteUrl('/')}</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${absoluteUrl('/about')}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>${absoluteUrl('/blog')}</loc>

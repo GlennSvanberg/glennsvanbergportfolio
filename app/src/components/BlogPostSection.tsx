@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Share2, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, ChevronUp, Share2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import type { Doc } from "../../convex/_generated/dataModel";
 import { MarkdownRenderer } from "./MarkdownRenderer";
+import type { Doc } from "../../convex/_generated/dataModel";
 
 export const BlogPostSection = ({ post }: { post: Doc<"posts"> }) => {
   const [copied, setCopied] = useState(false);
