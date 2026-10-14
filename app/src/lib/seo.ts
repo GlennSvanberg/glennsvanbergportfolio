@@ -9,7 +9,7 @@ export const DEFAULT_DESCRIPTION =
   'Glenn Svanberg testar ny teknik och nya sätt att göra saker — experiment, appar och blogg.'
 
 export const ABOUT_DESCRIPTION =
-  'Glenn Svanberg i Göteborg. Älskar att testa ny teknik och nya sätt att göra saker på — experiment under Inventing.'
+  'Glenn Svanberg i Göteborg. Älskar att testa ny teknik och nya sätt att göra saker på — appar, verktyg och lekfulla experiment.'
 
 export const SOCIAL_PROFILES = [
   'https://x.com/GlennSvanberg',
