@@ -45,9 +45,8 @@ function AboutPage() {
             teknik. Jag bygger hellre något och testar än läser om det.
           </p>
           <p>
-            Jag experimenterar under varumärket Inventing: appar, verktyg,
-            AI-agenter och lekfulla idéer. Vissa blir något, de flesta blir
-            lärdomar.
+            Jag experimenterar med appar, verktyg, AI-agenter och lekfulla idéer.
+            Vissa blir något, de flesta blir lärdomar.
           </p>
           <p>
             Den här sidan är min plats för experimenten och tankarna. Inte en
