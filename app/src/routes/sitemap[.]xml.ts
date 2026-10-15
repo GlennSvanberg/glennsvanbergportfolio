@@ -3,28 +3,48 @@ import { ConvexHttpClient } from 'convex/browser'
 import { api } from '../../convex/_generated/api'
 import { absoluteUrl } from '~/lib/seo'
 
-export const Route = createFileRoute('/sitemap.xml')({
-  server: {
-    handlers: {
-      GET: async () => {
-        const convexUrl = process.env.VITE_CONVEX_URL
-        if (!convexUrl) {
-          throw new Error('VITE_CONVEX_URL is required for sitemap')
-        }
-        const client = new ConvexHttpClient(convexUrl)
-        const posts = await client.query(api.posts.listForSitemap)
+type SitemapPost = { slug: string; updatedAt: number }
 
-        const postUrls = posts.map(
-          (post) => `
+function getSitemapConvexUrl(): string | undefined {
+  return (
+    import.meta.env.VITE_CONVEX_URL ||
+    process.env.VITE_CONVEX_URL ||
+    process.env.CONVEX_URL
+  )
+}
+
+async function fetchPostsForSitemap(): Promise<Array<SitemapPost>> {
+  const convexUrl = getSitemapConvexUrl()
+  if (!convexUrl) {
+    console.error(
+      '[sitemap] Convex URL missing (VITE_CONVEX_URL / CONVEX_URL); serving static URLs only',
+    )
+    return []
+  }
+
+  try {
+    const client = new ConvexHttpClient(convexUrl)
+    return await client.query(api.posts.listForSitemap)
+  } catch (error) {
+    console.error('[sitemap] listForSitemap failed; serving static URLs only', error)
+    return []
+  }
+}
+
+function buildSitemapXml(posts: Array<SitemapPost>): string {
+  const postUrls = posts
+    .map(
+      (post) => `
   <url>
     <loc>${absoluteUrl(`/blog/${post.slug}`)}</loc>
     <lastmod>${new Date(post.updatedAt).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-  </url>`
-        ).join('')
+  </url>`,
+    )
+    .join('')
 
-        const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${absoluteUrl('/')}</loc>
@@ -43,6 +63,14 @@ export const Route = createFileRoute('/sitemap.xml')({
   </url>
 ${postUrls}
 </urlset>`
+}
+
+export const Route = createFileRoute('/sitemap.xml')({
+  server: {
+    handlers: {
+      GET: async () => {
+        const posts = await fetchPostsForSitemap()
+        const sitemap = buildSitemapXml(posts)
 
         return new Response(sitemap, {
           headers: {
