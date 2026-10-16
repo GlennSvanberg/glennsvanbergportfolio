@@ -11,10 +11,19 @@ export const DEFAULT_DESCRIPTION =
 export const ABOUT_DESCRIPTION =
   'Glenn Svanberg i Göteborg. Älskar att testa ny teknik och nya sätt att göra saker på — appar, verktyg och lekfulla experiment.'
 
+export const PERSON_ID = `${SITE_URL}/#person`
+export const WEBSITE_ID = `${SITE_URL}/#website`
+
+export const PERSON_DESCRIPTION =
+  'Älskar att testa ny teknik och nya sätt att göra saker.'
+
 export const SOCIAL_PROFILES = [
   'https://x.com/GlennSvanberg',
   'https://www.linkedin.com/in/glenn-svanberg',
+  'https://github.com/GlennSvanberg',
 ] as const
+
+export const personSchemaRef = { '@id': PERSON_ID }
 export const DEFAULT_ROBOTS =
   'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
 export const NOINDEX_ROBOTS =
@@ -31,6 +40,9 @@ export function absoluteUrl(path: string = '/'): string {
 export function buildPageTitle(pageTitle?: string): string {
   if (!pageTitle) {
     return SITE_NAME
+  }
+  if (pageTitle.includes(SITE_NAME)) {
+    return pageTitle
   }
   return `${pageTitle} | ${SITE_NAME}`
 }
@@ -134,7 +146,9 @@ export function buildBlogPostPageMeta(post: BlogPostSeoInput) {
 export const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': PERSON_ID,
   name: SITE_NAME,
+  description: PERSON_DESCRIPTION,
   url: absoluteUrl('/'),
   email: 'mailto:glenn@inventing.se',
   address: {
@@ -150,17 +164,20 @@ export const aboutPageJsonLd = {
   '@type': 'ProfilePage',
   url: absoluteUrl('/about'),
   inLanguage: SITE_LANGUAGE,
-  name: buildPageTitle('Om'),
+  name: 'Om Glenn Svanberg',
   description: ABOUT_DESCRIPTION,
-  mainEntity: personJsonLd,
+  mainEntity: personSchemaRef,
 }
 
 export const webSiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': WEBSITE_ID,
   name: SITE_NAME,
   inLanguage: SITE_LANGUAGE,
   url: absoluteUrl('/'),
+  author: personSchemaRef,
+  publisher: personSchemaRef,
 }
 
 export const blogJsonLd = {
@@ -169,11 +186,7 @@ export const blogJsonLd = {
   name: `${SITE_NAME} Blogg`,
   inLanguage: SITE_LANGUAGE,
   url: absoluteUrl('/blog'),
-  publisher: {
-    '@type': 'Person',
-    name: SITE_NAME,
-    url: absoluteUrl('/'),
-  },
+  publisher: personSchemaRef,
 }
 
 function summarizeText(text: string, maxLength: number): string {
@@ -215,16 +228,8 @@ export function buildBlogPostingJsonLd(post: BlogPostSeoInput) {
     datePublished: publishedAtIso,
     dateModified: updatedAtIso,
     keywords: post.tags,
-    author: {
-      '@type': 'Person',
-      name: SITE_NAME,
-      url: absoluteUrl('/'),
-    },
-    publisher: {
-      '@type': 'Person',
-      name: SITE_NAME,
-      url: absoluteUrl('/'),
-    },
+    author: personSchemaRef,
+    publisher: personSchemaRef,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': url,

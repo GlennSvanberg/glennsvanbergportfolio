@@ -6,7 +6,7 @@ import { ABOUT_DESCRIPTION, aboutPageJsonLd, buildPageMeta } from '~/lib/seo'
 export const Route = createFileRoute('/about')({
   head: () =>
     buildPageMeta({
-      title: 'Om',
+      title: 'Om Glenn Svanberg',
       description: ABOUT_DESCRIPTION,
       path: '/about',
     }),
