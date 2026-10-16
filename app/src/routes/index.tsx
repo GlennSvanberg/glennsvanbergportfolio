@@ -9,7 +9,7 @@ import { buildPageMeta } from '~/lib/seo'
 export const Route = createFileRoute('/')({
   head: () =>
     buildPageMeta({
-      title: 'Portfolio och experiment',
+      title: 'Glenn Svanberg – jag älskar att testa saker',
       description:
         'Glenn Svanberg älskar att testa ny teknik och nya sätt att göra saker. Appar, experiment och blogg.',
       path: '/',

@@ -12,7 +12,7 @@ export function getProjectImageUrls(project: Project): { desktop: string; mobile
 }
 
 export function getProjectImageAlt(project: Project): string {
-  return `Skarmbild av ${project.name}: ${project.description}`;
+  return `Skärmbild av ${project.name}: ${project.description}`;
 }
 
 export function ResponsiveProjectImg({
