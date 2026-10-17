@@ -138,6 +138,15 @@ function BlogPost() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase text-foreground leading-tight">
             {post.title}
           </h1>
+          <p className="mt-6 font-mono text-xs tracking-widest uppercase text-muted/60">
+            Av{' '}
+            <Link
+              to="/about"
+              className="text-foreground hover:text-emerald-400 transition-colors"
+            >
+              Glenn Svanberg
+            </Link>
+          </p>
         </header>
 
         <div className="prose-container relative">

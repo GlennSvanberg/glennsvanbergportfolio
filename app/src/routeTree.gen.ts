@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as AnotherPageRouteImport } from './routes/anotherPage'
+import { Route as FeedDotxmlRouteImport } from './routes/feed[.]xml'
+import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -40,6 +42,16 @@ const AdminRouteRoute = AdminRouteRouteImport.update({
 const AnotherPageRoute = AnotherPageRouteImport.update({
   id: '/anotherPage',
   path: '/anotherPage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
+  id: '/feed.xml',
+  path: '/feed.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RssDotxmlRoute = RssDotxmlRouteImport.update({
+  id: '/rss.xml',
+  path: '/rss.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -88,6 +100,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/anotherPage': typeof AnotherPageRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -101,6 +115,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/anotherPage': typeof AnotherPageRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -116,6 +132,8 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/anotherPage': typeof AnotherPageRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -132,6 +150,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about'
     | '/anotherPage'
+    | '/feed.xml'
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/settings'
@@ -145,6 +165,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/anotherPage'
+    | '/feed.xml'
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/settings'
@@ -159,6 +181,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about'
     | '/anotherPage'
+    | '/feed.xml'
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/settings'
@@ -174,6 +198,8 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AnotherPageRoute: typeof AnotherPageRoute
+  FeedDotxmlRoute: typeof FeedDotxmlRoute
+  RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -207,6 +233,20 @@ declare module '@tanstack/react-router' {
       path: '/anotherPage'
       fullPath: '/anotherPage'
       preLoaderRoute: typeof AnotherPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed.xml': {
+      id: '/feed.xml'
+      path: '/feed.xml'
+      fullPath: '/feed.xml'
+      preLoaderRoute: typeof FeedDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rss.xml': {
+      id: '/rss.xml'
+      path: '/rss.xml'
+      fullPath: '/rss.xml'
+      preLoaderRoute: typeof RssDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -293,6 +333,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AnotherPageRoute: AnotherPageRoute,
+  FeedDotxmlRoute: FeedDotxmlRoute,
+  RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,

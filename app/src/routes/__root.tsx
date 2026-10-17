@@ -7,13 +7,14 @@ import {
 } from '@tanstack/react-router'
 import * as React from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { AtSign, Linkedin, Phone, Twitter } from 'lucide-react'
+import { AtSign, Github, Linkedin, Phone, Twitter } from 'lucide-react'
 import type { QueryClient } from '@tanstack/react-query'
 import appCss from '~/styles/app.css?url'
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_ROBOTS,
   SITE_NAME,
+  absoluteUrl,
   personJsonLd,
   webSiteJsonLd,
 } from '~/lib/seo'
@@ -62,6 +63,12 @@ export const Route = createRootRouteWithContext<{
       { rel: 'stylesheet', href: appCss },
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      {
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        title: SITE_NAME,
+        href: absoluteUrl('/rss.xml'),
+      },
     ],
   }),
   notFoundComponent: () => <div>Sidan hittades inte</div>,
@@ -159,7 +166,7 @@ function RootComponent() {
                 <a
                   href="https://x.com/GlennSvanberg"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
                 >
                   <Twitter className="h-4 w-4" />
@@ -168,11 +175,20 @@ function RootComponent() {
                 <a
                   href="https://www.linkedin.com/in/glenn-svanberg"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
                 >
                   <Linkedin className="h-4 w-4" />
                   LinkedIn
+                </a>
+                <a
+                  href="https://github.com/GlennSvanberg"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
+                >
+                  <Github className="h-4 w-4" />
+                  GitHub
                 </a>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
-import { AtSign, Linkedin, Twitter } from 'lucide-react'
+import { AtSign, Github, Linkedin, Twitter } from 'lucide-react'
 import { ABOUT_DESCRIPTION, aboutPageJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/about')({
@@ -65,7 +65,7 @@ function AboutPage() {
           <a
             href="https://x.com/GlennSvanberg"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
           >
             <Twitter className="h-4 w-4" />
@@ -74,11 +74,20 @@ function AboutPage() {
           <a
             href="https://www.linkedin.com/in/glenn-svanberg"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
           >
             <Linkedin className="h-4 w-4" />
             LinkedIn
+          </a>
+          <a
+            href="https://github.com/GlennSvanberg"
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
+          >
+            <Github className="h-4 w-4" />
+            GitHub
           </a>
           <a
             href="mailto:glenn@inventing.se"
