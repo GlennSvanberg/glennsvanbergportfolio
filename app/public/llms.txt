@@ -14,11 +14,14 @@
 - glenn@inventing.se
 
 ## Crawl policy
-- Allowed: /, /blog, /blog/*
+- Allowed: /, /about, /blog, /blog/*
 - Do not crawl: /admin, /admin/*, /anotherPage
 
 ## Sitemap
 - https://www.glennsvanberg.se/sitemap.xml
+
+## RSS
+- https://www.glennsvanberg.se/rss.xml
 
 ## Language
 - Primary language: Swedish (sv-SE)
