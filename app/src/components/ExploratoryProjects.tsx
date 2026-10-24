@@ -8,6 +8,27 @@ import { ResponsiveProjectImg, getProjectImageAlt, getProjectImageUrls } from ".
 import type { Project } from "../data/projects";
 import type { Doc } from "../../convex/_generated/dataModel";
 
+const ProjectPromo = ({ project }: { project: Project }) => {
+  if (!project.promo) {
+    return null;
+  }
+  return (
+    <p className="text-base md:text-lg text-muted/75 font-light leading-relaxed">
+      {project.promo.text}{" "}
+      <a
+        href={project.promo.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        trackaton-on-click="project-promo"
+        className="inline-flex items-center gap-1 font-mono text-sm uppercase tracking-widest text-emerald-400 hover:text-emerald-300 underline underline-offset-4 decoration-emerald-400/40 hover:decoration-emerald-300 transition-colors"
+      >
+        {project.promo.linkLabel}
+        <ArrowUpRight className="w-4 h-4" aria-hidden />
+      </a>
+    </p>
+  );
+};
+
 // --------------------------------------------------------
 // ProjectImage Component with inner parallax drift
 // --------------------------------------------------------
@@ -128,6 +149,7 @@ const DiagonalSection = ({ project, sectionId }: { project: Project; sectionId: 
               <p className="text-xl md:text-2xl text-foreground/80 font-light leading-relaxed">
                 {project.description}
               </p>
+              <ProjectPromo project={project} />
             </div>
             
             <a
@@ -212,6 +234,7 @@ const CenterParallaxSection = ({ project, sectionId }: { project: Project; secti
           <p className="text-xl md:text-2xl text-muted/80 font-serif italic leading-relaxed z-10 relative">
             "{project.description}"
           </p>
+          <ProjectPromo project={project} />
 
           <a
             href={project.url}
@@ -262,6 +285,7 @@ const StickySidebarSection = ({ project, sectionId }: { project: Project; sectio
               <p className="text-xl md:text-2xl text-foreground/80 font-light leading-relaxed">
                 {project.description}
               </p>
+              <ProjectPromo project={project} />
               
               <div className="flex flex-wrap gap-3 mt-4">
                 {project.tags.map((tag) => (

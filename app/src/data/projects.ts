@@ -7,6 +7,8 @@ export type Project = {
   name: string;
   tags: Array<string>;
   description: string;
+  /** Optional short line + link shown under the description (e.g. related product). */
+  promo?: { text: string; href: string; linkLabel: string };
   url: string;
   colSpan?: number;
   rowSpan?: number;
@@ -23,6 +25,11 @@ export const projects: Array<Project> = [
     tags: ["Verktyg"],
     description:
       "Gör mobilen till streckkodsläsare utan att behöva installera något. Ett experiment i hur man kan minska startsträckan – synka med QR och kör vidare.",
+    promo: {
+      text: "Söker du QR-koder för verksamhet?",
+      href: "https://qrbutik.se",
+      linkLabel: "Besök QRbutik",
+    },
     url: "https://scan.glennsvanberg.se",
     imageUrlDesktop: "/scan-desktop.png",
     imageUrlMobile: "/scan-mobile.png",
