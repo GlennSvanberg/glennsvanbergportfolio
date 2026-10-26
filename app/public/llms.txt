@@ -1,17 +1,20 @@
 # Glenn Svanberg
 
-> Personal portfolio and blog for Glenn Svanberg — testing new technology and smarter ways to build things. Apps, tools, and playful experiments; based in Göteborg.
+> Glenn Svanberg älskar att testa saker — ny teknik och smartare sätt att göra saker. Appar, verktyg och lekfulla experiment. Bor i Göteborg.
 
 ## Canonical site
 - https://www.glennsvanberg.se/
 
-## Main sections
-- https://www.glennsvanberg.se/
-- https://www.glennsvanberg.se/about
-- https://www.glennsvanberg.se/blog
+## Sidor
+- [Start](https://www.glennsvanberg.se/): Glenn Svanberg – jag älskar att testa saker
+- [Om](https://www.glennsvanberg.se/about): Om Glenn Svanberg
+- [Blogg](https://www.glennsvanberg.se/blog): Experiment, appar och tankar
+- [RSS](https://www.glennsvanberg.se/rss.xml)
 
-## Contact
-- glenn@inventing.se
+## Profiler
+- [X](https://x.com/GlennSvanberg)
+- [LinkedIn](https://www.linkedin.com/in/glenn-svanberg)
+- [GitHub](https://github.com/GlennSvanberg)
 
 ## Crawl policy
 - Allowed: /, /about, /blog, /blog/*
@@ -19,9 +22,6 @@
 
 ## Sitemap
 - https://www.glennsvanberg.se/sitemap.xml
-
-## RSS
-- https://www.glennsvanberg.se/rss.xml
 
 ## Language
 - Primary language: Swedish (sv-SE)
