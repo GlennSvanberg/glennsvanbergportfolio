@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-router'
 import * as React from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Github, Linkedin, Phone, Twitter } from 'lucide-react'
+import { AtSign, Github, Linkedin, Phone, Twitter } from 'lucide-react'
 import type { QueryClient } from '@tanstack/react-query'
 import appCss from '~/styles/app.css?url'
 import {
@@ -149,6 +149,13 @@ function RootComponent() {
                 </nav>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
+                <a
+                  href="mailto:glenn@inventing.se"
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
+                >
+                  <AtSign className="h-4 w-4" />
+                  glenn@inventing.se
+                </a>
                 <a
                   href="tel:+46735029113"
                   className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
