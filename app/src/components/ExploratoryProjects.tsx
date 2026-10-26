@@ -206,9 +206,9 @@ const CenterParallaxSection = ({ project, sectionId }: { project: Project; secti
 
       <div className="container relative z-10 mx-auto px-4 md:px-8 max-w-6xl text-center flex flex-col items-center gap-12">
         <div className="relative inline-block z-10">
-          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-black text-foreground uppercase tracking-tighter cursor-default leading-none pb-3">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-black text-foreground uppercase tracking-tighter cursor-default leading-none pb-3">
             {project.name}
-          </h3>
+          </h2>
           <motion.div
             initial={{ width: "0%", left: "50%", x: "-50%" }}
             whileInView={{ width: "100%" }}

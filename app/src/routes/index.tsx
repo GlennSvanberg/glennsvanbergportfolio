@@ -67,15 +67,17 @@ function Home() {
 
         {/* Foreground content (fastest): lifts + fades on scroll */}
         <motion.div style={{ y: heroContentY, opacity: heroContentOpacity, scale: heroContentScale }} className="relative z-10 flex flex-col items-center">
-          <motion.h1 style={{ y: heroTitleY }} className="text-7xl md:text-[9rem] font-black tracking-tighter uppercase text-white mb-6">
-            Glenn <span className="block md:inline">Svanberg</span>
+          <motion.h1 className="flex flex-col items-center">
+            <motion.span style={{ y: heroTitleY }} className="text-7xl md:text-[9rem] font-black tracking-tighter uppercase text-white mb-6">
+              Glenn <span className="block md:inline">Svanberg</span>
+            </motion.span>
+            <span className="max-w-3xl text-lg md:text-2xl text-foreground/90 font-medium leading-snug normal-case tracking-normal border-b border-primary/30 pb-5">
+              Jag älskar att testa saker.
+            </span>
           </motion.h1>
-          <p className="max-w-3xl text-lg md:text-2xl text-foreground/90 font-medium leading-snug border-b border-primary/30 pb-5">
-            Jag älskar att testa saker.
-          </p>
           <p className="mt-5 max-w-xl text-sm md:text-base text-muted/80 font-light leading-relaxed">
-            Ny teknik, nya sätt att göra saker på och att förstå hur det kan göras
-            smartare. Här under finns experimenten.
+            Glenn Svanberg testar ny teknik och nya sätt att göra saker på — och
+            hur det kan göras smartare. Här under finns experimenten.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link

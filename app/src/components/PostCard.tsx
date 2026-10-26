@@ -50,9 +50,9 @@ export const PostCard = ({ post }: { post: Doc<"posts"> }) => {
           </span>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-black text-foreground uppercase tracking-tighter">
+        <h2 className="text-2xl md:text-3xl font-black text-foreground uppercase tracking-tighter">
           {post.title}
-        </h3>
+        </h2>
         
         {post.excerpt && (
           <p className="text-muted/80 font-light leading-relaxed">

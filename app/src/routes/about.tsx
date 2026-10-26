@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
-import { AtSign, Github, Linkedin, Twitter } from 'lucide-react'
+import { Github, Linkedin, Twitter } from 'lucide-react'
 import { ABOUT_DESCRIPTION, aboutPageJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/about')({
@@ -31,7 +31,7 @@ function AboutPage() {
             Göteborg
           </motion.p>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-foreground">
-            Om Glenn
+            Om Glenn <span className="block">Svanberg</span>
           </h1>
           <p className="mt-8 text-xl md:text-2xl text-muted/90 font-light leading-relaxed border-l-2 border-emerald-400 pl-6">
             Jag älskar att testa ny teknik och nya sätt att göra saker på.
@@ -88,13 +88,6 @@ function AboutPage() {
           >
             <Github className="h-4 w-4" />
             GitHub
-          </a>
-          <a
-            href="mailto:glenn@inventing.se"
-            className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
-          >
-            <AtSign className="h-4 w-4" />
-            glenn@inventing.se
           </a>
         </div>
       </article>
