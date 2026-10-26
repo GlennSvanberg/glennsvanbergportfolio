@@ -16,6 +16,9 @@
 - [LinkedIn](https://www.linkedin.com/in/glenn-svanberg)
 - [GitHub](https://github.com/GlennSvanberg)
 
+## Contact
+- glenn@inventing.se
+
 ## Crawl policy
 - Allowed: /, /about, /blog, /blog/*
 - Do not crawl: /admin, /admin/*, /anotherPage

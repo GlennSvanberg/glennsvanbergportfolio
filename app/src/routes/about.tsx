@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Twitter } from 'lucide-react'
+import { AtSign, Github, Linkedin, Twitter } from 'lucide-react'
 import { ABOUT_DESCRIPTION, aboutPageJsonLd, buildPageMeta } from '~/lib/seo'
 
 export const Route = createFileRoute('/about')({
@@ -88,6 +88,13 @@ function AboutPage() {
           >
             <Github className="h-4 w-4" />
             GitHub
+          </a>
+          <a
+            href="mailto:glenn@inventing.se"
+            className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted hover:border-emerald-400 hover:text-emerald-400 transition-colors"
+          >
+            <AtSign className="h-4 w-4" />
+            glenn@inventing.se
           </a>
         </div>
       </article>
