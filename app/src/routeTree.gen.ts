@@ -23,6 +23,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin/blog/index'
 import { Route as AdminTweetsIndexRouteImport } from './routes/admin/tweets/index'
+import { Route as OgBlogSlugRouteImport } from './routes/og/blog/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,6 +95,11 @@ const AdminTweetsIndexRoute = AdminTweetsIndexRouteImport.update({
   path: '/tweets/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const OgBlogSlugRoute = OgBlogSlugRouteImport.update({
+  id: '/og/blog/$slug',
+  path: '/og/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/og/blog/$slug': typeof OgBlogSlugRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/tweets/': typeof AdminTweetsIndexRoute
 }
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/og/blog/$slug': typeof OgBlogSlugRoute
   '/admin/blog': typeof AdminBlogIndexRoute
   '/admin/tweets': typeof AdminTweetsIndexRoute
 }
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/og/blog/$slug': typeof OgBlogSlugRoute
   '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/tweets/': typeof AdminTweetsIndexRoute
 }
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/admin/'
     | '/blog/'
+    | '/og/blog/$slug'
     | '/admin/blog/'
     | '/admin/tweets/'
   fileRoutesByTo: FileRoutesByTo
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/admin'
     | '/blog'
+    | '/og/blog/$slug'
     | '/admin/blog'
     | '/admin/tweets'
   id:
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/admin/'
     | '/blog/'
+    | '/og/blog/$slug'
     | '/admin/blog/'
     | '/admin/tweets/'
   fileRoutesById: FileRoutesById
@@ -203,6 +215,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  OgBlogSlugRoute: typeof OgBlogSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTweetsIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/og/blog/$slug': {
+      id: '/og/blog/$slug'
+      path: '/og/blog/$slug'
+      fullPath: '/og/blog/$slug'
+      preLoaderRoute: typeof OgBlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -338,6 +358,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  OgBlogSlugRoute: OgBlogSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

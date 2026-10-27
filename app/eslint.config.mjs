@@ -5,5 +5,9 @@ import convexPlugin from '@convex-dev/eslint-plugin'
 export default defineConfig([
   ...tanstackConfig,
   ...convexPlugin.configs.recommended,
-  globalIgnores(['convex/_generated', '.output']),
+  globalIgnores([
+    'convex/_generated',
+    '.output',
+    'src/lib/ogFonts.generated.ts',
+  ]),
 ])

@@ -56,7 +56,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         name: 'twitter:card',
-        content: 'summary',
+        content: 'summary_large_image',
       },
     ],
     links: [
@@ -76,14 +76,18 @@ export const Route = createRootRouteWithContext<{
 })
 
 function ScrollProgressBar() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.4 });
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 25,
+    mass: 0.4,
+  })
   return (
     <motion.div
       style={{ scaleX }}
       className="fixed top-0 left-0 right-0 h-[3px] bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)] origin-left z-[60]"
     />
-  );
+  )
 }
 
 function RootComponent() {

@@ -12,11 +12,13 @@
     "start": "node .output/server/index.mjs",
     "format": "prettier --write .",
     "lint": "tsc && eslint .  --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "og:image": "node --experimental-strip-types scripts/generate-og.ts",
     "screenshot": "node scripts/screenshot-site.mjs",
     "screenshot:findglenn": "node scripts/screenshot-findglenn.mjs"
   },
   "dependencies": {
     "@convex-dev/react-query": "^0.1.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@tanstack/react-query": "^5.90.20",
     "@tanstack/react-router": "1.170.44",
     "@tanstack/react-router-with-query": "^1.130.17",

@@ -2,8 +2,15 @@ export const SITE_NAME = 'Glenn Svanberg'
 export const SITE_URL = 'https://www.glennsvanberg.se'
 export const SITE_LANGUAGE = 'sv-SE'
 export const SITE_LOCALE = 'sv_SE'
-export const DEFAULT_OG_IMAGE_PATH = '/glennsvanberg-desktop.png'
-export const DEFAULT_OG_IMAGE_ALT = 'Glenn Svanbergs portfolio med appar och experiment'
+export const DEFAULT_OG_IMAGE_PATH = '/og.png'
+export const DEFAULT_OG_IMAGE_ALT =
+  'Glenn Svanberg. Jag älskar att testa saker.'
+export const OG_IMAGE_WIDTH = '1200'
+export const OG_IMAGE_HEIGHT = '630'
+
+export function blogPostOgPath(slug: string): string {
+  return `/og/blog/${slug}`
+}
 
 export const DEFAULT_DESCRIPTION =
   'Glenn Svanberg testar ny teknik och nya sätt att göra saker — experiment, appar och blogg.'
@@ -89,6 +96,9 @@ export function buildPageMeta(input: PageMetaInput) {
       { property: 'og:url', content: url },
       { property: 'og:image', content: imageUrl },
       { property: 'og:image:secure_url', content: imageUrl },
+      { property: 'og:image:type', content: 'image/png' },
+      { property: 'og:image:width', content: OG_IMAGE_WIDTH },
+      { property: 'og:image:height', content: OG_IMAGE_HEIGHT },
       { property: 'og:image:alt', content: imageAlt },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
@@ -131,13 +141,17 @@ export function buildBlogPostDescription(
 
 export function buildBlogPostPageMeta(post: BlogPostSeoInput) {
   const publishedAtIso = new Date(post.publishedAt).toISOString()
-  const modifiedAtIso = new Date(post.updatedAt ?? post.publishedAt).toISOString()
+  const modifiedAtIso = new Date(
+    post.updatedAt ?? post.publishedAt,
+  ).toISOString()
 
   return buildPageMeta({
     title: post.title,
     description: buildBlogPostDescription(post),
     path: `/blog/${post.slug}`,
     ogType: 'article',
+    imagePath: blogPostOgPath(post.slug),
+    imageAlt: `${post.title} — Glenn Svanberg`,
     articlePublishedTime: publishedAtIso,
     articleModifiedTime: modifiedAtIso,
   })
@@ -216,7 +230,9 @@ export function buildBlogPostingJsonLd(post: BlogPostSeoInput) {
   const description = summarizeText(descriptionSource, 180)
   const url = absoluteUrl(`/blog/${post.slug}`)
   const publishedAtIso = new Date(post.publishedAt).toISOString()
-  const updatedAtIso = new Date(post.updatedAt ?? post.publishedAt).toISOString()
+  const updatedAtIso = new Date(
+    post.updatedAt ?? post.publishedAt,
+  ).toISOString()
 
   return {
     '@context': 'https://schema.org',
@@ -228,6 +244,7 @@ export function buildBlogPostingJsonLd(post: BlogPostSeoInput) {
     datePublished: publishedAtIso,
     dateModified: updatedAtIso,
     keywords: post.tags,
+    image: absoluteUrl(blogPostOgPath(post.slug)),
     author: personSchemaRef,
     publisher: personSchemaRef,
     mainEntityOfPage: {
