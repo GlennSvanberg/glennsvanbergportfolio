@@ -1,6 +1,6 @@
 /**
  * Taggar är begränsade till en gemensam uppsättning så filtret i portfolion inte exploderar:
- * AI · Data · E-handel · Marknadsföring · Personligt · Realtid · Spel · Verktyg
+ * AI · Data · E-handel · Marknadsföring · Personligt · PIM · Realtid · Spel · Verktyg · Öppen källkod
  */
 export type Project = {
   id: string;
@@ -19,6 +19,23 @@ export type Project = {
 };
 
 export const projects: Array<Project> = [
+  {
+    id: "braian",
+    name: "Braian",
+    tags: ["AI", "PIM", "Öppen källkod"],
+    description:
+      "Öppen källkods-PIM där varje klick är omedelbart. Ett system som förstår dig och fortsätter göra ditt arbete lättare – självhostat under Apache-2.0, med demo och en AI-agent som föreslår ändringar tills du sparar. 64 ms från sparning till sökbart och 20 ms till varje öppen session (p50).",
+    promo: {
+      text: "Källkoden är öppen.",
+      href: "https://github.com/braian-io/braian",
+      linkLabel: "GitHub",
+    },
+    url: "https://braian.io",
+    imageUrlDesktop: "/braian-desktop.png",
+    imageUrlMobile: "/braian-mobile.png",
+    colSpan: 2,
+    rowSpan: 2,
+  },
   {
     id: "scan",
     name: "Scan",
@@ -57,17 +74,6 @@ export const projects: Array<Project> = [
     imageUrlMobile: "/qrbutik-mobile.png",
     colSpan: 1,
     rowSpan: 2,
-  },
-  {
-    id: "braian",
-    name: "Braian",
-    tags: ["AI"],
-    description: "Kontextmedveten AI – för närvarande mest chatbot med öppen kontext, men visionen är att tänka om hur vi interagerar med AI. \"Chatbots finns bara för att utvecklare var för lata att bygga något riktigt.\"",
-    url: "https://braian.io",
-    imageUrlDesktop: "/braian-desktop.png",
-    imageUrlMobile: "/braian-mobile.png",
-    colSpan: 2,
-    rowSpan: 1,
   },
   {
     id: "glennsvanberg",
